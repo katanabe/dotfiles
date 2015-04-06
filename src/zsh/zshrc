@@ -1,0 +1,23 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+echo “source .zshrc”
+
+# prezto.
+if [[ -s "${HOME}/.zprezto/init.zsh" ]]; then
+  source "${HOME}/.zprezto/init.zsh"
+fi
+
+# alias.
+if [[ -f "${HOME}/.zshrc.alias" ]]; then
+  source "${HOME}/.zshrc.alias"
+fi
+
+# osx.
+if [[ -f "${HOME}/.zshrc.osx" ]]; then
+  source "${HOME}/.zshrc.osx"
+fi
