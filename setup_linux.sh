@@ -6,7 +6,7 @@ SRC_DIR="${DOT_FILES}/src"
 DEPS_DIR="${DOT_FILES}/deps"
 
 echo "[1/5] rm .vim* .zsh* files"
-for f in "${HOME}"/.vim* "${HOME}"/.zsh* "${HOME}"/.zl* "${HOME}"/.zprezto*
+for f in "${HOME}"/.vim* "${HOME}"/.zsh* "${HOME}"/.zl* "${HOME}"/.zpr*
 do
   echo "rm: -rf $f"
   rm -rf $f
@@ -44,8 +44,9 @@ if [ ! -d "${HOME}/.vim/bundle" ]; then
   echo "mkdir: .vim/bundle"
   mkdir -p ${HOME}/.vim/bundle
 fi
+
 echo "mv: .neobundle.vim -> .vim/bundle/neobundle.vim"
 mv -f ${HOME}/.neobundle.vim ${HOME}/.vim/bundle/
 mv -f ${HOME}/.vim/bundle/.neobundle.vim ${HOME}/.vim/bundle/neobundle.vim
 
-echo "completed!!"
+echo "completed."

@@ -1,0 +1,62 @@
+" ==============================================================================
+" 	ruler
+" ==============================================================================
+
+set ruler                   	" show the cursor position all the time
+
+" ==============================================================================
+" 	editor
+" ==============================================================================
+
+augroup cch 					" highlight cursor line in current window
+    autocmd!
+    autocmd WinLeave * set nocursorline
+    autocmd WinEnter,BufRead * set cursorline
+augroup END
+
+highlight clear CursorLine
+highlight CursorLine ctermbg=black
+
+set showcmd                     " コマンドの一部を画面下に表示
+set number                      " 行番号の表示
+set nolazyredraw                " don't redraw while executing macros
+set wildmenu                    " turn on wild menu
+set wildmode=list:longest,full
+set cmdheight=1                 " コマンドライン行を1行に
+" カーソルを左右させるキーのうち、ここで指定したものでは、
+" カーソルが行頭／末にあるときに前／次行に移動できるようになる。
+set whichwrap=b,s,h,l,<,>,[,]
+
+set backspace=indent,eol,start 	" インサートモードですべて消す
+set shortmess=filtoOA           " shorten messages
+set report=0                    " tell us about changes
+set nostartofline               " don't jump to the start of line when scrolling
+set showmatch                   " brackets/braces that is
+set matchtime=3                 " duration to show matching brace (1/10 sec)
+set laststatus=2                " The last window always have status line
+set scrolloff=5             	" Keep at least 5 lines above and below the cursor
+set visualbell t_vb=        	" No beep sound
+
+" Treat octal and hexadecimal number as decimal number
+" octal  Numbers that start with a zero will be considered to be octal
+"        Example: Using CTRL-A on "007" results in "010"
+" hex    Numbers starting with "0x" or "0X" will be considered to be hexadecimal
+"        Example: Using CTRL-X on "0x100" results in "0x0ff"
+set nrformats-=octal,hex,alpha
+if has("mouse") " Enable the use of the mouse in all modes
+  set mouse=a
+endif
+
+" フォーカスが移った場合に常にredraw
+augroup Redraw
+    autocmd!
+    autocmd FocusGained * redraw!
+augroup END
+
+" ==============================================================================
+" 	window
+" ==============================================================================
+
+" 横分割時は下へ､ 縦分割時は右へ新しいウィンドウが開くようにする
+set splitbelow
+set splitright

@@ -1,0 +1,15 @@
+"==============================================================================
+"	common
+"==============================================================================
+
+set nocompatible            " use Vim in more useful way"
+set clipboard+=unnamed      " share clipboard with other systems
+let mapleader=','           " Lead with ,
+
+"" Character encoding
+set encoding=utf-8          " Use utf-8
+set termencoding=utf-8      " ..
+set fileencodings=utf-8     " ..
+
+" Automatic end-of-file format detection
+set fileformats=unix,mac,dos

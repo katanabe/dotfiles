@@ -1,0 +1,13 @@
+"==============================================================================
+" file type
+"==============================================================================
+
+augroup FileTypeDetect
+    autocmd!
+    autocmd BufRead,BufNewFile *.java                   setfiletype java
+    autocmd BufRead,BufNewFile *.json,*.gyp,*.js        setfiletype javascript
+    autocmd BufRead,BufNewFile *.md                     setfiletype markdown
+    autocmd BufRead,BufNewFile *.py                     setfiletype python
+    autocmd BufRead,BufNewFile *.html                   setfiletype html
+    autocmd BufRead,BufNewFile *.go                     setfiletype go
+augroup END

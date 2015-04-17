@@ -1,0 +1,60 @@
+"==============================================================================
+" 	highlight
+"==============================================================================
+
+syntax on
+
+" 行末にスペースをハイライト
+function! WhiteSpaceEOL()
+  highlight WhiteSpaceEOL ctermbg=red guibg=red
+endfunction
+
+" 全角文字をハイライト
+function! ZenkakuSpace()
+  highlight ZenkakuSpace ctermbg=green guibg=green
+endfunction
+
+if has('syntax')
+  augroup WhiteSpaceEol
+    autocmd!
+    autocmd ColorScheme       * call WhiteSpaceEOL()
+    autocmd VimEnter,WinEnter * match WhiteSpaceEOL /\s\+$/
+  augroup END
+  call WhiteSpaceEOL()
+  augroup ZenkakuSpace
+    autocmd!
+    autocmd ColorScheme       * call ZenkakuSpace()
+    autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+  augroup END
+  call ZenkakuSpace()
+endif
+
+
+" ==============================================================================
+" 	format
+" ==============================================================================
+
+set autoindent              " 改行時に自動インデント
+set smartindent             " {}などを入力時に同じ行にインデント
+set wrap                    " テキストを改行して表示
+
+set tabstop=8               " Tabが対応する空白の数 
+set expandtab               " Tabをスペースに変換
+set nosmarttab              " fuck tabs
+set softtabstop=2           " Tab入力時の表示幅
+set shiftwidth=2
+set shiftround              " インデントをshiftwidthの倍数に丸める
+
+set infercase               " 補完時に大文字小文字を区別しない
+set formatoptions+=n        " テキスト整形時に番号付きリストをサポート
+set wrapmargin=0
+set virtualedit=block       " allow virtual edit in visual block ..
+set listchars=tab:▸\ ,eol:¬,extends:»,precedes:«,nbsp:%
+set nolist
+set ambiwidth=double        " 全角文字をASCIIの2倍の幅で表示する
+
+set textwidth=0             " 改行が入らないようにする
+if v:version >= 703
+  set colorcolumn=80        " 80字の部分でラインが表示されるように
+endif
+set foldmethod=marker       " マーカーで折りたたみを行えるように
