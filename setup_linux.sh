@@ -6,10 +6,10 @@ SRC_DIR="${DOT_FILES}/src"
 DEPS_DIR="${DOT_FILES}/deps"
 
 echo "[1/5] rm .vim* .zsh* files"
-for f in "${HOME}"/.vim* "${HOME}"/.zsh*
+for f in "${HOME}"/.vim* "${HOME}"/.zsh* "${HOME}"/.zl* "${HOME}"/.zprezto*
 do
-  echo "rm: $f"
-#  rm $f
+  echo "rm: -rf $f"
+  rm -rf $f
 done
 
 echo "[2/5] symlink: vim...(${SRC_DIR}/vim/*)"
@@ -33,11 +33,19 @@ do
   ln -s ${f} ${HOME}/.`basename $f`
 done
 
-echo "[5/5] symlink: modules...(${DEPS_DIR}/*)"
+echo "[5/5] symlink: git submodules...(${DEPS_DIR}/*)"
 for f in "${DEPS_DIR}"/*
 do
   echo "ln: `basename $f`"
   ln -s "${DEPS_DIR}/`basename $f`" ${HOME}/.`basename $f`
 done
+
+if [ ! -d "${HOME}/.vim/bundle" ]; then
+  echo "mkdir: .vim/bundle"
+  mkdir -p ${HOME}/.vim/bundle
+fi
+echo "mv: .neobundle.vim -> .vim/bundle/neobundle.vim"
+mv -f ${HOME}/.neobundle.vim ${HOME}/.vim/bundle/
+mv -f ${HOME}/.vim/bundle/.neobundle.vim ${HOME}/.vim/bundle/neobundle.vim
 
 echo "completed!!"

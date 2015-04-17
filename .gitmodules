@@ -1,3 +1,6 @@
 [submodule "deps/zprezto"]
 	path = deps/zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
+[submodule "deps/neobundle.vim"]
+	path = deps/neobundle.vim
+	url = https://github.com/Shougo/neobundle.vim.git
