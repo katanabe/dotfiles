@@ -4,3 +4,6 @@
 [submodule "deps/neobundle.vim"]
 	path = deps/neobundle.vim
 	url = https://github.com/Shougo/neobundle.vim.git
+[submodule "deps/fonts"]
+	path = deps/fonts
+	url = https://github.com/abertsch/Menlo-for-Powerline.git
