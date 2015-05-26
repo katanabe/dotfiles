@@ -46,7 +46,7 @@ export PATH=$PATH:$COCOS_CONSOLE_ROOT
 export PATH=$PATH:$COCOS_TEMPLATES_ROOT
 
 # add go
-#export PATH=$PATH:$PATH:$GOPATH/bin
+export PATH=$PATH:$PATH:$GOPATH/bin
 
 # add ndk-gdb
 export PATH=$PATH:$NDK_ROOT
