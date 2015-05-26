@@ -6,10 +6,10 @@
 "                        |___/_/_/ /_/ /_/_/   \___/                        "
 "                                                                           "
 "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-source $HOME/.vimrc.common
-source $HOME/.vimrc.format
-source $HOME/.vimrc.ftdetect
-source $HOME/.vimrc.search
-source $HOME/.vimrc.gui
-source $HOME/.vimrc.neobundle
+source $HOME/dotfiles/src/vim/vimrc.common
+source $HOME/dotfiles/src/vim/vimrc.format
+source $HOME/dotfiles/src/vim/vimrc.filesupport
+source $HOME/dotfiles/src/vim/vimrc.search
+source $HOME/dotfiles/src/vim/vimrc.editor
 
+"source $HOME/dotfiles/src/vim/vimrc.neobundle
