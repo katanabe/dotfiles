@@ -13,18 +13,27 @@ do
 done
 
 echo "[2/5] symlink: vim...(${SRC_DIR}/vim/*)"
-for f in "${SRC_DIR}"/vim/*
-do
-  echo "ln: `basename $f`"
-  ln -s $f ${HOME}/.`basename $f`
-done
+echo "ln: vimrc"
+ln -s ${SRC_DIR}/vim/vimrc ${HOME}/.vimrc
+
+echo "ln: gvimrc"
+ln -s ${SRC_DIR}/vim/gvimrc ${HOME}/.gvimrc
+
+
+# for f in "${SRC_DIR}"/vim/*
+# do
+#   echo "ln: `basename $f`"
+#   ln -s $f ${HOME}/.`basename $f`
+# done
 
 echo "[3/5] symlink: zsh...(${SRC_DIR}/zsh/*)"
-for f in "${SRC_DIR}"/zsh/*
-do
-  echo "ln: `basename $f`"
-  ln -s ${f} ${HOME}/.`basename $f`
-done
+echo "ln: zshrc"
+ln -s ${SRC_DIR}/zsh/zshrc ${HOME}/.zshrc
+# for f in "${SRC_DIR}"/zsh/*
+# do
+#   echo "ln: `basename $f`"
+#   ln -s ${f} ${HOME}/.`basename $f`
+# done
 
 echo "[4/5] symlink: prezto...(${SRC_DIR}/prezto/*)"
 for f in "${SRC_DIR}"/prezto/*
@@ -34,7 +43,7 @@ do
 done
 
 echo "[5/5] symlink: git submodules...(${DEPS_DIR}/*)"
-for f in "${DEPS_DIR}"/*
+for f in "${DEPS_DIR}"/zprezto "${DEPS_DIR}"/neobundle.vim
 do
   echo "ln: `basename $f`"
   ln -s "${DEPS_DIR}/`basename $f`" ${HOME}/.`basename $f`
