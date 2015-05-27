@@ -1,0 +1,12 @@
+" --------------- INSTALLS ------------------
+
+" https://github.com/itchyny/lightline.vim （ステータスバーのカスタマイズプラグイン）
+NeoBundle 'itchyny/lightline.vim'
+
+" https://github.com/cocopon/lightline-hybrid.vim (lightline 用のカラースキーム)
+"NeoBundle 'cocopon/lightline-hybrid.vim'
+
+
+" --------------- SETTINGS ------------------
+
+"TODO

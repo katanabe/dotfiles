@@ -12,4 +12,4 @@ source $HOME/dotfiles/src/vim/vimrc.filesupport
 source $HOME/dotfiles/src/vim/vimrc.search
 source $HOME/dotfiles/src/vim/vimrc.editor
 
-"source $HOME/dotfiles/src/vim/vimrc.neobundle
+source $HOME/dotfiles/src/vim/plugins/neobundle

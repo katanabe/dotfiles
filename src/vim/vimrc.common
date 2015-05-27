@@ -2,9 +2,14 @@
 "	common
 "==============================================================================
 
-set nocompatible            " use Vim in more useful way"
-set clipboard+=unnamed      " share clipboard with other systems
-let mapleader=','           " Lead with ,
+" Vi互換モードをオフ（Vimの拡張機能を有効）
+set nocompatible
+
+" share clipboard with other systems
+set clipboard+=unnamed
+
+" Lead with ,
+let mapleader=','
 
 "" Character encoding
 set encoding=utf-8          " Use utf-8

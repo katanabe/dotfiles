@@ -1,0 +1,4 @@
+" --------------- INSTALLS ------------------
+
+" https://github.com/mhinz/vim-startify (起動時に履歴を表示させるプラグイン)
+NeoBundle 'mhinz/vim-startify'

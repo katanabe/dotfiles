@@ -2,54 +2,26 @@
 "                                  General                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" startify (Vimの起動画面で履歴を表示)
-NeoBundle 'mhinz/vim-startify'
-
-" vimproc (Vimスクリプトの非同期実行)
-NeoBundle 'Shougo/vimproc.vim', {
-            \'build': {
-            \     'windows' : 'make -f make_wingw32.mak',
-            \     'cygwin'  : 'make -f make_cygwin.mak',
-            \     'mac'     : 'make -f make_mac.mak',
-            \     'unix'    : 'make -f make_unix.mak',
-            \    },
-            \ }
-
-" Unite
-NeoBundle 'Shougo/unite.vim'
-
 " Unite - git
-NeoBundle 'yuku-t/unite-git'
+"NeoBundle 'yuku-t/unite-git'
 
-" - ソースのアウトライン表示
-NeoBundle 'Shougo/unite-outline', {
-            \ 'autoload' : {
-            \   'filetypes' : ['c', 'cpp', 'markdown']
-            \   }
-            \ }
 
 " - Uniteでhelp
-NeoBundle 'Shougo/unite-help', {
+"NeoBundle 'Shougo/unite-help', {
             \ 'disabled' : 0
             \ }
 
 " - UniteMRU
-NeoBundle 'Shougo/neomru.vim'
-
-" - Uniteでカラースキーム
-NeoBundle 'ujihisa/unite-colorscheme'
-
-" status bar
-" - lightline 用のカラースキーム
-NeoBundle 'cocopon/lightline-hybrid.vim'
-
-" - ステータスバーをかっこ良く
-NeoBundle 'itchyny/lightline.vim'
+"NeoBundle 'Shougo/neomru.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Color Scheme                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundle "tomasr/molokai"
+"NeoBundle "tomasr/molokai"
+
+" - Uniteでカラースキーム
+"NeoBundle 'ujihisa/unite-colorscheme'
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Programming                                 "
@@ -272,10 +244,5 @@ NeoBundleLazy 'junegunn/goyo.vim', {
             \   },
             \}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                Others/Misc                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " others
 NeoBundle 'vim-jp/vimdoc-ja'
-

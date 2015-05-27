@@ -24,7 +24,14 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
-source $HOME/src/vim/plugins/neobundle.plugin
+
+source $HOME/dotfiles/src/vim/plugins/vimproc
+source $HOME/dotfiles/src/vim/plugins/startify
+source $HOME/dotfiles/src/vim/plugins/unite
+source $HOME/dotfiles/src/vim/plugins/lightline
+
+"source $HOME/dotfiles/src/vim/plugins/neobundle.plugin
+"source $HOME/dotfiles/src/vim/plugins/neobundle.codesupport
 
 call neobundle#end()
 
