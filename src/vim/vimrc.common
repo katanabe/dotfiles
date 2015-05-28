@@ -18,3 +18,9 @@ set fileencodings=utf-8     " ..
 
 " Automatic end-of-file format detection
 set fileformats=unix,mac,dos
+
+" set colorscheme when installed molokai plugin.
+colorscheme molokai
+
+" molokai plugin must be need below line.
+set t_Co=256

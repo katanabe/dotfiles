@@ -29,8 +29,10 @@ source $HOME/dotfiles/src/vim/plugins/vimproc
 source $HOME/dotfiles/src/vim/plugins/startify
 source $HOME/dotfiles/src/vim/plugins/unite
 source $HOME/dotfiles/src/vim/plugins/lightline
+source $HOME/dotfiles/src/vim/plugins/color
+source $HOME/dotfiles/src/vim/plugins/gui
+source $HOME/dotfiles/src/vim/plugins/help
 
-"source $HOME/dotfiles/src/vim/plugins/neobundle.plugin
 "source $HOME/dotfiles/src/vim/plugins/neobundle.codesupport
 
 call neobundle#end()

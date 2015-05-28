@@ -4,12 +4,34 @@
 NeoBundle 'Shougo/unite.vim'
 
 
-" https://github.com/Shougo/unite-outline (ソースのアウトライン表示)
+" https://github.com/Shougo/vimfiler.vim (Unite Filer)
+NeoBundle 'Shougo/vimfiler', {'depends': 'Shougo/unite.vim'}
+
+
+" https://github.com/Shougo/unite-outline (Uniteでソースのアウトライン表示)
 NeoBundle 'Shougo/unite-outline', {
             \ 'autoload' : {
             \   'filetypes' : ['c', 'hpp', 'cpp', 'markdown']
             \   }
             \ }
+
+
+" https://github.com/Shougo/neomru.vim (:Unite file_mru)
+NeoBundle 'Shougo/neomru.vim'
+
+
+" https://github.com/Shougo/unite-help (Uniteでhelp)
+NeoBundle 'Shougo/unite-help', {
+            \ 'disabled' : 0
+            \ }
+
+
+" https://github.com/kmnk/vim-unite-giti (Uniteでgit)
+NeoBundle 'yuku-t/unite-git'
+
+
+"https://github.com/ujihisa/unite-colorscheme (Uniteでカラースキームの一覧表示)
+NeoBundle 'ujihisa/unite-colorscheme'
 
 
 " --------------- SETTINGS ------------------
@@ -29,6 +51,9 @@ nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W
 
 " grep検索結果の再呼出
 nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+
+" yankのヒストリー一覧表示
+nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
 
 " unite grep に ag(The Silver Searcher) を使う
 if executable('ag')

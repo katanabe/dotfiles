@@ -1,0 +1,4 @@
+" ------------- INSTALLS ----------------
+
+" https://github.com/vim-jp/vimdoc-ja（Vimの付属ドキュメントを日本語に翻訳）
+NeoBundle 'vim-jp/vimdoc-ja'

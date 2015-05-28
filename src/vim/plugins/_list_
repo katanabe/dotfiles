@@ -1,29 +1,4 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  General                                   "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Unite - git
-"NeoBundle 'yuku-t/unite-git'
-
-
-" - Uniteでhelp
-"NeoBundle 'Shougo/unite-help', {
-            \ 'disabled' : 0
-            \ }
-
-" - UniteMRU
-"NeoBundle 'Shougo/neomru.vim'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                Color Scheme                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"NeoBundle "tomasr/molokai"
-
-" - Uniteでカラースキーム
-"NeoBundle 'ujihisa/unite-colorscheme'
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Programming                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -45,11 +20,6 @@ NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets', {
             \ 'disabled' : 1,
             \ }
-
-
-" Filer
-" - ファイラ
-NeoBundle 'Shougo/vimfiler', {'depends': 'Shougo/unite.vim'}
 
 " Visual
 " - ウィンドウ選択をビジュアルに
@@ -243,6 +213,3 @@ NeoBundleLazy 'junegunn/goyo.vim', {
             \   'commands' : ['Goyo'],
             \   },
             \}
-
-" others
-NeoBundle 'vim-jp/vimdoc-ja'
