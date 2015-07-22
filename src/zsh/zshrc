@@ -5,7 +5,7 @@ if [[ -s "${HOME}/.zprezto/init.zsh" ]]; then
   source "${HOME}/.zprezto/init.zsh"
 fi
 
-ZSH_DIR=${HOME}/src/zsh
+ZSH_DIR=${HOME}/dotfiles/src/zsh
 
 # alias.
 if [[ -f "${ZSH_DIR}/zshrc.alias" ]]; then
