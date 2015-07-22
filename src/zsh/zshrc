@@ -1,11 +1,14 @@
-echo “source .zshrc”
-
 # prezto.
 if [[ -s "${HOME}/.zprezto/init.zsh" ]]; then
   source "${HOME}/.zprezto/init.zsh"
 fi
 
 ZSH_DIR=${HOME}/dotfiles/src/zsh
+
+# antigen.
+if [[ -f "${ZSH_DIR}/zshrc.antigen" ]]; then
+  source "${ZSH_DIR}/zshrc.antigen"
+fi
 
 # alias.
 if [[ -f "${ZSH_DIR}/zshrc.alias" ]]; then
