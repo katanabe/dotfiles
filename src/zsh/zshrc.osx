@@ -1,29 +1,41 @@
-# define
-export NDK_ROOT=/Applications/adt/ndk-r9d
-export ANDROID_SDK_ROOT=/Applications/adt/sdk
-export ANT_ROOT=/usr/local/Cellar/ant/1.9.4/libexec/bin
-export COCOS_X_ROOT=/Applications/cocos2d-x-3.4
-export COCOS_CONSOLE_ROOT=/Applications/cocos2d-x-3.4/tools/cocos2d-console/bin
-export COCOS_TEMPLATES_ROOT=/Applications/cocos2d-x-3.4/templates
-export GOPATH=/usr/local/go
-export JVM_HOME=/System/Library/Frameworks/JavaVM.framework/Home
+######### functions #########
 
-# functions
 function set_jdk() {
-	if [ $# -ne 0 ]; then
-		removeFromPath $JVM_HOME/bin
-		if [ -n "${JAVA_HOME+x}" ]; then
-			removeFromPath $JAVA_HOME
-		fi
-		
-		export JAVA_HOME=`/usr/libexec/java_home -v $@`
-		export PATH=$JAVA_HOME/bin:$PATH
-	fi
+  if [ $# -ne 0 ]; then
+    removeFromPath $JVM_HOME/bin
+    
+    if [ -n "${JAVA_HOME+x}" ]; then
+      removeFromPath $JAVA_HOME
+    fi
+	
+    export JAVA_HOME=`/usr/libexec/java_home -v $@`
+    export PATH=$JAVA_HOME/bin:$PATH
+  fi
 }
 
 function removeFromPath() {
-	export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
+  export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
 }
+
+######### defines #########
+
+# android dev tool
+export ADT=/Applications/adt
+export NDK_ROOT=$ADT/ndk-r9d
+export ANDROID_SDK_ROOT=$ADT/sdk
+export ANT_ROOT=/usr/local/Cellar/ant/1.9.4/libexec/bin
+export JVM_HOME=/System/Library/Frameworks/JavaVM.framework/Home
+
+# cocos dev tool
+export COCOS_X_ROOT=/Applications/cocos2d-x-3.4
+export COCOS_CONSOLE_ROOT=/Applications/cocos2d-x-3.4/tools/cocos2d-console/bin
+export COCOS_TEMPLATES_ROOT=/Applications/cocos2d-x-3.4/templates
+
+# other paths
+export GOPATH=/usr/local/go
+export HEROKU=/usr/local/heroku
+
+######### set paths #########
 
 # add java
 set_jdk 1.7
@@ -46,7 +58,17 @@ export PATH=$PATH:$COCOS_CONSOLE_ROOT
 export PATH=$PATH:$COCOS_TEMPLATES_ROOT
 
 # add go
-export PATH=$PATH:$PATH:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin
 
 # add ndk-gdb
 export PATH=$PATH:$NDK_ROOT
+
+# add ruby
+eval "$(rbenv init - zsh)"
+export PATH=$PATH:$HOME/.rbenv/bin
+
+# add python 
+eval "$(pyenv init -)"
+
+## add Heroku
+export PATH=$PATH:$HEROKU/bin
