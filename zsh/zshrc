@@ -3,7 +3,7 @@ if [[ -s "${HOME}/.zprezto/init.zsh" ]]; then
   source "${HOME}/.zprezto/init.zsh"
 fi
 
-ZSH_DIR=${HOME}/dotfiles/src/zsh
+ZSH_DIR=${HOME}/dotfiles/zsh
 
 # antigen.
 if [[ -f "${ZSH_DIR}/zshrc.antigen" ]]; then

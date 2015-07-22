@@ -7,9 +7,9 @@
 "                                                                           "
 "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
-source $HOME/dotfiles/src/vim/plugins/neobundle
-source $HOME/dotfiles/src/vim/vimrc.common
-source $HOME/dotfiles/src/vim/vimrc.format
-source $HOME/dotfiles/src/vim/vimrc.filesupport
-source $HOME/dotfiles/src/vim/vimrc.search
-source $HOME/dotfiles/src/vim/vimrc.editor
+source $HOME/dotfiles/vim/plugins/neobundle
+source $HOME/dotfiles/vim/vimrc.common
+source $HOME/dotfiles/vim/vimrc.format
+source $HOME/dotfiles/vim/vimrc.filesupport
+source $HOME/dotfiles/vim/vimrc.search
+source $HOME/dotfiles/vim/vimrc.editor

@@ -25,15 +25,15 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
 
-source $HOME/dotfiles/src/vim/plugins/vimproc
-source $HOME/dotfiles/src/vim/plugins/startify
-source $HOME/dotfiles/src/vim/plugins/unite
-source $HOME/dotfiles/src/vim/plugins/lightline
-source $HOME/dotfiles/src/vim/plugins/color
-source $HOME/dotfiles/src/vim/plugins/gui
-source $HOME/dotfiles/src/vim/plugins/help
+source $HOME/dotfiles/vim/plugins/vimproc
+source $HOME/dotfiles/vim/plugins/startify
+source $HOME/dotfiles/vim/plugins/unite
+source $HOME/dotfiles/vim/plugins/lightline
+source $HOME/dotfiles/vim/plugins/color
+source $HOME/dotfiles/vim/plugins/gui
+source $HOME/dotfiles/vim/plugins/help
 
-"source $HOME/dotfiles/src/vim/plugins/neobundle.codesupport
+"source $HOME/dotfiles/vim/plugins/neobundle.codesupport
 
 call neobundle#end()
 
@@ -44,5 +44,5 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 
-set runtimepath+=$HOME/dotfiles/src/vim/
+set runtimepath+=$HOME/dotfiles/vim/
 runtime! plugins/conf.d/*.vim
