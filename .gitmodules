@@ -7,3 +7,6 @@
 [submodule "deps/fonts"]
 	path = deps/fonts
 	url = https://github.com/abertsch/Menlo-for-Powerline.git
+[submodule "deps/zsh-antigen"]
+	path = deps/zsh-antigen
+	url = https://github.com/zsh-users/antigen.git
