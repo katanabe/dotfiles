@@ -38,7 +38,7 @@ export HEROKU=/usr/local/heroku
 ######### set paths #########
 
 # add java
-set_jdk 1.7
+set_jdk 1.8
 
 # add android-platform-tools
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
