@@ -7,3 +7,6 @@
 [submodule "deps/zsh-antigen"]
 	path = deps/zsh-antigen
 	url = https://github.com/zsh-users/antigen.git
+[submodule "deps/autojump"]
+	path = deps/autojump
+	url = git://github.com/joelthelion/autojump.git

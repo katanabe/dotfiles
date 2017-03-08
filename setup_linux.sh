@@ -41,6 +41,12 @@ do
   ln -s "${DEPS_DIR}/`basename $f`" ${HOME}/.`basename $f`
 done
 
+# install autojump
+if [ -d "${DEPS_DIR}/autojump" ]; then
+  echo "install autojump"
+  sh "${DEPS_DIR}/autojump/install.sh"
+fi
+
 if [ ! -d "${HOME}/.vim/bundle" ]; then
   echo "mkdir: .vim/bundle"
   mkdir -p ${HOME}/.vim/bundle
@@ -56,7 +62,7 @@ mv -f ${HOME}/.vim/bundle/.neobundle.vim ${HOME}/.vim/bundle/neobundle.vim
 #   case "$f" in
 #     *\.md) ;;
 # 	*rc) ;;
-#     *) 
+#     *)
 # 	echo "ln: `basename $f`"
 #   	ln -s "$f" ${HOME}/.`basename $f` ;;
 #   esac
