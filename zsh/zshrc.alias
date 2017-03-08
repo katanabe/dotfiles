@@ -1,3 +1,7 @@
 # vim
 #alias vim=/usr/local/Cellar/vim/7.4.712/bin/vim
 #alias ctags=/usr/local/Cellar/ctags/5.8/bin/ctags
+
+if [ `uname` = "Darwin" ]; then
+    alias open-realm="open $(find ~/Library/Developer/CoreSimulator/Devices/$(ls -t1 ~/Library/Developer/CoreSimulator/Devices/ | head -1)/data/Containers/Data/Application/ -name \*.realm)"
+fi

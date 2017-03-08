@@ -13,3 +13,4 @@ source $HOME/dotfiles/vim/vimrc.format
 source $HOME/dotfiles/vim/vimrc.filesupport
 source $HOME/dotfiles/vim/vimrc.search
 source $HOME/dotfiles/vim/vimrc.editor
+source $(brew --prefix nvm)/nvm.sh

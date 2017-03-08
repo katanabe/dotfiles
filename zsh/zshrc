@@ -19,3 +19,6 @@ fi
 if [[ -f "${ZSH_DIR}/zshrc.osx" ]]; then
   source "${ZSH_DIR}/zshrc.osx"
 fi
+
+export NVM_DIR="/Users/keiichi/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
