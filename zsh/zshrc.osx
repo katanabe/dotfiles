@@ -38,6 +38,7 @@ export GOPATH=/usr/local/go
 export HEROKU=/usr/local/heroku
 export NVM_DIR=~/.nvm
 export NODE_PATH=/usr/local/lib/node_modules
+export JAVA_HOME=/usr/bin/java
 
 ######### set paths #########
 
@@ -83,7 +84,7 @@ eval "$(pyenv init -)"
 export PATH=$PATH:$HEROKU/bin
 
 # add nodebrew
-# export PATH=$PATH:$HOME/.nodebrew/current/bin
+export PATH=$PATH:$HOME/.nodebrew/current/bin
 
 # add nvm
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

@@ -44,7 +44,7 @@ done
 # install autojump
 if [ -d "${DEPS_DIR}/autojump" ]; then
   echo "install autojump"
-  sh "${DEPS_DIR}/autojump/install.sh"
+  sh "python ${DEPS_DIR}/autojump/install.py"
 fi
 
 if [ ! -d "${HOME}/.vim/bundle" ]; then
