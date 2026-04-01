@@ -1,0 +1,8 @@
+shell = "zsh"
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+# syntax-highlighting must be loaded last
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"

@@ -20,6 +20,9 @@ eval "$(starship init zsh)"
 # atuin (shell history)
 eval "$(atuin init zsh)"
 
+# sheldon (package manager)
+eval "$(sheldon source)"
+
 # fzf
 source <(fzf --zsh)
 
@@ -47,8 +50,4 @@ zj() {
   fi
 }
 
-# zsh-autosuggestions
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# zsh-syntax-highlighting (must be sourced last)
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
