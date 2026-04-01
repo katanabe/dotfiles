@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+
+CHEZMOI_DIR="$HOME/.local/share/chezmoi"
+
+# Sync Ghostty GUI config to chezmoi-managed config
+GHOSTTY_GUI_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
+if [ -f "$GHOSTTY_GUI_CONFIG" ]; then
+  cp "$GHOSTTY_GUI_CONFIG" "$GHOSTTY_CONFIG"
+fi
+
+# Update Brewfile
+/opt/homebrew/bin/brew bundle dump --file="$HOME/.config/Brewfile" --force
+
+# Re-add all managed files to chezmoi (picks up any changes)
+/opt/homebrew/bin/chezmoi re-add
+
+# Commit and push if there are changes
+cd "$CHEZMOI_DIR"
+git pull --rebase || exit 1
+if [ -n "$(git status --porcelain)" ]; then
+  git add -A
+  git commit -m "auto: sync dotfiles $(date +%Y-%m-%d)"
+  git push
+fi

@@ -31,6 +31,10 @@ npm_token = "your-npm-token"
 .
 ├── dot_zshrc.tmpl                          # シェル設定（テンプレート）
 ├── dot_gitconfig                           # Git 設定
+├── dot_local/bin/
+│   └── executable_sync-dotfiles          # 自動同期スクリプト
+├── private_Library/private_LaunchAgents/
+│   └── com.katanabe.sync-dotfiles.plist  # launchd 定義（毎日 12:00）
 └── dot_config/
     ├── Brewfile                            # Homebrew パッケージ一覧
     ├── starship.toml                       # プロンプト（Catppuccin Mocha）
