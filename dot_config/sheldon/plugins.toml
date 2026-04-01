@@ -1,5 +1,17 @@
 shell = "zsh"
 
+[plugins.starship]
+inline = 'eval "$(starship init zsh)"'
+
+[plugins.zoxide]
+inline = 'eval "$(zoxide init zsh)"'
+
+[plugins.atuin]
+inline = 'eval "$(atuin init zsh)"'
+
+[plugins.fzf]
+inline = 'source <(fzf --zsh)'
+
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 
