@@ -35,7 +35,6 @@ npm_token = "your-npm-token"
     ├── Brewfile                            # Homebrew パッケージ一覧
     ├── starship.toml                       # プロンプト（Catppuccin Mocha）
     ├── private_atuin/private_config.toml   # シェル履歴
-    ├── gh/private_config.yml               # GitHub CLI
     ├── ghostty/config                      # ターミナル
     ├── mise/config.toml                    # ランタイム管理
     ├── sheldon/plugins.toml                # zsh プラグイン管理
