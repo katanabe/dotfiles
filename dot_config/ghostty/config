@@ -1,23 +1,28 @@
 theme = Cobalt Next Dark
+
 font-family = Menlo
 font-family = "Hiragino Kaku Gothic ProN"
-background-opacity = 0.7
-macos-titlebar-style = tabs
-background-blur = true
-adjust-cell-height = 2
 font-thicken = true
+
+background-opacity = 0.7
+background-blur = true
+
+adjust-cell-height = 2
+
 keybind = ctrl+h=goto_split:left
 keybind = ctrl+l=goto_split:right
-window-inherit-working-directory = true
+keybind = "cmd+shift+t=toggle_quick_terminal"
+
 shell-integration = detect
 
 quick-terminal-position = "right"
 quick-terminal-screen = "main"
 quick-terminal-animation-duration = 0.3
-keybind = "cmd+shift+t=toggle_quick_terminal"
 
 clipboard-write = allow
-
 clipboard-trim-trailing-spaces = true
+
 macos-titlebar-style = tabs
+
 window-new-tab-position = current
+window-inherit-working-directory = true
