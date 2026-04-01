@@ -1,0 +1,38 @@
+layout {
+    // oripaone開発用レイアウト
+    // 使用方法: zellij --layout oripaone
+
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+        children
+    }
+
+    tab name="dev" focus=true cwd="/Users/katanabe/ghq/github.com/kecakjp/oripaone" {
+        pane split_direction="vertical" {
+            // 左側 (30%)
+            pane size="30%" split_direction="horizontal" {
+                // 左上: filetree (ft) - Enterでbat表示
+                pane name="files" {
+                    command "sh"
+                    args "-c" "FILETREE_DEFAULT_CMD='LESSKEYIN=~/.config/lesskey zellij run --floating --close-on-exit --x 10% --y 10% --width 80% --height 80% -- bat --paging=always <filepath>' ft"
+                }
+                // 左下: keifu
+                pane name="keifu" {
+                    command "keifu"
+                }
+            }
+            // 右側 (70%)
+            pane split_direction="horizontal" {
+                // 右上: claude
+                pane name="claude" focus=true {
+                    command "claude"
+                    args "--dangerously-skip-permissions"
+                }
+                // 右下: terminal
+                pane name="terminal"
+            }
+        }
+    }
+}

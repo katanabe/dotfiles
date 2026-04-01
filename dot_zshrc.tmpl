@@ -1,0 +1,54 @@
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# zsh-completions
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  autoload -Uz compinit
+  compinit -u
+fi
+
+# mise (runtime manager)
+eval "$(mise activate zsh)"
+
+# starship (prompt)
+eval "$(starship init zsh)"
+
+# autojump
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
+# atuin (shell history)
+eval "$(atuin init zsh)"
+
+# fzf
+source <(fzf --zsh)
+
+# Android SDK
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+
+# Java
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+
+# maestro
+export PATH=$PATH:$HOME/.maestro/bin
+
+# NPM Token
+export NPM_TOKEN={{ .npm_token | quote }}
+
+# Custom functions
+zj() {
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    zellij --layout dev
+  else
+    zellij
+  fi
+}
+
+# zsh-autosuggestions
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# zsh-syntax-highlighting (must be sourced last)
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
