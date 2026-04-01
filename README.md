@@ -58,6 +58,28 @@ Homebrew Bundle ─── パッケージ一覧の記録・復元
 launchd ─── 毎日 12:00 に自動同期
 ```
 
+## 手動更新
+
+### dotfiles を最新に同期（pull → apply）
+
+```bash
+chezmoi update
+brew bundle --file=~/.config/Brewfile
+```
+
+### ローカルの変更をプッシュ
+
+```bash
+# Brewfile を現在のインストール状態で更新
+brew bundle dump --file=~/.config/Brewfile --force
+
+# chezmoi に反映してプッシュ
+chezmoi re-add
+chezmoi git add .
+chezmoi git commit -- -m "update dotfiles"
+chezmoi git push
+```
+
 ## 自動同期
 
 launchd (`com.katanabe.sync-dotfiles`) が毎日 12:00 に以下を実行:
