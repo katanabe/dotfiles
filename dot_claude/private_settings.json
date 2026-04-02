@@ -1,0 +1,29 @@
+{
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.py"
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "learning-output-style@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true,
+    "codex@openai-codex": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
+  },
+  "language": "Japanese",
+  "effortLevel": "medium",
+  "skipDangerousModePermissionPrompt": true
+}
