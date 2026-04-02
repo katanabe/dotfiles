@@ -18,7 +18,10 @@ fi
 
 # Commit and push if there are changes
 cd "$CHEZMOI_DIR"
+git add -A
+git stash
 git pull --rebase || exit 1
+git stash pop 2>/dev/null || true
 if [ -n "$(git status --porcelain)" ]; then
   git add -A
   git commit -m "auto: sync dotfiles $(date +%Y-%m-%d)"
