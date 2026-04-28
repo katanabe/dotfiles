@@ -21,6 +21,22 @@ brew bundle --file=~/.config/Brewfile
 sheldon lock
 ```
 
+## マシン固有の設定・シークレット
+
+特定のマシンでだけ必要な環境変数や API トークンなどは、chezmoi の追跡外である `~/.zshrc.local` に書く。`.zshrc` の最後で自動的に source される。
+
+```bash
+# 例: ~/.zshrc.local
+export NPM_TOKEN="ghp_xxxxx"
+export OPENAI_API_KEY="sk-xxxxx"
+```
+
+ルール:
+
+- 全マシンで共通の設定は `dot_zshrc.tmpl` に書く
+- 1台でしか使わない設定 / シークレットは `~/.zshrc.local` に書く（git 管理しない）
+- macOS 標準の `security` コマンドで Keychain に置きたい場合も、ルックアップ行は `~/.zshrc.local` に書く
+
 ## ディレクトリ構成
 
 ```
