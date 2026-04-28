@@ -5,6 +5,9 @@
 ## セットアップ
 
 ```bash
+# Homebrew をインストール
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 # chezmoi をインストール
 brew install chezmoi
 
@@ -91,6 +94,8 @@ launchd (`com.katanabe.sync-dotfiles`) が毎日 12:00 に以下を実行:
 1. `brew bundle dump` — Brewfile を更新
 2. `chezmoi re-add` — 変更された dotfiles を取り込み
 3. 差分があれば自動 commit & push
+4. `git pull` — リモートの変更を取得
+5. `chezmoi apply` — リモートの変更をディスクに反映
 
 ```bash
 # ログ確認
