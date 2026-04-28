@@ -1,3 +1,5 @@
 [tools]
 node = "lts"
-pnpm = "latest"
+"npm:pnpm" = "latest"
+bun = "latest"
+ruby = "latest"
