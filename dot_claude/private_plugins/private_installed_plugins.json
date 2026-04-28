@@ -84,6 +84,16 @@
         "lastUpdated": "2026-03-31T07:27:11.487Z",
         "gitCommitSha": "9cb4fe4099195b2587c402117a3efce6ab5aac78"
       }
+    ],
+    "vercel@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/katanabe/.claude/plugins/cache/claude-plugins-official/vercel/0.40.0",
+        "version": "0.40.0",
+        "installedAt": "2026-04-28T00:35:21.650Z",
+        "lastUpdated": "2026-04-28T00:35:21.650Z",
+        "gitCommitSha": "8db97f0ce51120ac056a4e557f627a9428db4d74"
+      }
     ]
   }
 }
