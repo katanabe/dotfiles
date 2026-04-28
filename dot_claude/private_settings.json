@@ -26,6 +26,5 @@
   },
   "language": "Japanese",
   "effortLevel": "high",
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "dark-ansi"
+  "skipDangerousModePermissionPrompt": true
 }
