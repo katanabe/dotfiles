@@ -21,12 +21,13 @@ brew bundle --file=~/.config/Brewfile
 sheldon lock
 ```
 
-適用後、`~/.config/chezmoi/chezmoi.toml` を作成してシークレットを設定:
+適用後、NPM_TOKEN を macOS Keychain に登録:
 
-```toml
-[data]
-npm_token = "your-npm-token"
+```bash
+security add-generic-password -U -a "$USER" -s npm-token -w "<your-npm-token>"
 ```
+
+`.zshrc` は起動時に Keychain から読み出します（未登録なら空文字、エラーにはなりません）。
 
 ## ディレクトリ構成
 
