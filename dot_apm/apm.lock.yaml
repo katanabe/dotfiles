@@ -1,0 +1,13 @@
+lockfile_version: '1'
+generated_at: '2026-04-29T03:58:53.312163+00:00'
+apm_version: 0.9.4
+dependencies:
+- repo_url: mizchi/skills
+  host: github.com
+  resolved_commit: a0ebf680f62836f64d7e9b741ee212f55b108f88
+  virtual_path: apm-usage
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .claude/skills/apm-usage
+  content_hash: sha256:abb6cc4892713ed3d3976d05b5445566cfe22fa54f8d7db225bc6de3b9331976
