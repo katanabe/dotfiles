@@ -1,3 +1,4 @@
+tap "homebrew/autoupdate"
 tap "microsoft/apm"
 tap "mobile-dev-inc/tap"
 tap "sinelaw/fresh"
