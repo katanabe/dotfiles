@@ -1,6 +1,6 @@
 ---
 name: chezmoi-management
-description: katanabe's personal chezmoi dotfiles workflow on macOS. Covers the source layout, the diff/apply/re-add cycle, the .tmpl + re-add footgun, APM coexistence, brew autoupdate, the background "auto: sync dotfiles" commit job, and Claude native install PATH handling. Consult this skill whenever any chezmoi command is being considered, or when touching ~/.config/, ~/.zshrc, ~/.apm/, or ~/.claude/skills/. Also use when initializing a fresh macOS machine. Don't guess chezmoi behavior — patterns here have specific reasons rooted in this user's setup.
+description: 'katanabe''s personal chezmoi dotfiles workflow on macOS. Covers the source layout, the diff/apply/re-add cycle, the .tmpl + re-add footgun, APM coexistence, brew autoupdate, the background "auto: sync dotfiles" commit job, and Claude native install PATH handling. Consult this skill whenever any chezmoi command is being considered, or when touching ~/.config/, ~/.zshrc, ~/.apm/, or ~/.claude/skills/. Also use when initializing a fresh macOS machine. Don''t guess chezmoi behavior — patterns here have specific reasons rooted in this user''s setup.'
 ---
 
 # chezmoi management (katanabe)
