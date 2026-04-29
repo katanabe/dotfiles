@@ -113,8 +113,10 @@ APM (Microsoft Agent Package Manager) deploys agent skills to `~/.claude/skills/
 | `~/.apm/apm.lock.yaml` | chezmoi (`dot_apm/apm.lock.yaml`) | pins commit hashes for reproducibility |
 | `~/.apm/apm_modules/` | APM (cache) | listed in `.chezmoiignore` |
 | `~/.apm/config.json` | per-machine, untracked | tiny client preference |
-| `~/.claude/skills/<apm-managed>/` | APM | listed in `.chezmoiignore` per skill name |
-| `~/.claude/skills/<chezmoi-managed>/` (e.g. this skill) | chezmoi | normal chezmoi flow |
+| `~/.claude/skills/<apm-managed>/` | APM | covered by the wildcard `.claude/skills/*` rule in `.chezmoiignore` (no per-skill entry needed) |
+| `~/.claude/skills/<chezmoi-managed>/` (e.g. this skill) | chezmoi | re-included via `!.claude/skills/<name>` + `!.claude/skills/<name>/**` in `.chezmoiignore` |
+
+The current `.chezmoiignore` ignores everything under `.claude/skills/` and re-includes only chezmoi-managed skills explicitly. So adopting a new APM skill requires no `.chezmoiignore` edit; adding a new *chezmoi-managed* skill requires adding two negation lines for it.
 
 ### Add a skill via APM (with chezmoi sync)
 
@@ -129,10 +131,11 @@ What it does internally:
 
 1. `apm install -g <pkg>` — deploys the skill, updates `~/.apm/apm.yml` + `~/.apm/apm.lock.yaml`
 2. `chezmoi re-add ~/.apm/apm.yml ~/.apm/apm.lock.yaml` — captures into source
-3. Appends `.claude/skills/<name>` to `.chezmoiignore` (deduped)
-4. Reminds the user to commit/push the dotfiles repo
+3. Reminds the user to commit/push the dotfiles repo
 
-To remove a skill: `apm uninstall -g <owner>/<repo>` then `chezmoi re-add` the manifests and remove the line from `.chezmoiignore`. The function does not bundle the removal flow because it's rarer.
+No `.chezmoiignore` edit is needed: the wildcard `.claude/skills/*` rule already covers any APM-deployed path.
+
+To remove a skill: `apm uninstall -g <owner>/<repo>` then `chezmoi re-add` the manifests. The function does not bundle the removal flow because it's rarer.
 
 ### Pinning recommendation
 
