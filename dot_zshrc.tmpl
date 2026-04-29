@@ -23,9 +23,8 @@ apm-add() {
   local pkg="$1"; local name="${pkg##*/}"
   apm install -g "$pkg" || return 1
   chezmoi re-add ~/.apm/apm.yml ~/.apm/apm.lock.yaml
-  if ! grep -q "^.claude/skills/${name}$" ~/.local/share/chezmoi/.chezmoiignore; then
-    echo ".claude/skills/${name}" >> ~/.local/share/chezmoi/.chezmoiignore
-  fi
+  # No .chezmoiignore append: the wildcard `.claude/skills/*` rule already
+  # covers any APM-deployed skill (see chezmoi-management skill for the boundary).
   echo "added: $name (commit/push the dotfiles repo to persist)"
 }
 

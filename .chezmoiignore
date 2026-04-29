@@ -1,6 +1,9 @@
 # APM-managed paths — chezmoi must not deploy these.
 # apm install (re)creates them, lockfile pins versions for reproducibility.
 .apm/apm_modules
-.claude/skills/apm-usage
-.claude/skills/empirical-prompt-tuning
-.claude/skills/retrospective-codify
+
+# Treat ~/.claude/skills/* as APM-territory by default.
+# Re-include the chezmoi-managed skills below explicitly.
+.claude/skills/*
+!.claude/skills/chezmoi-management
+!.claude/skills/chezmoi-management/**
