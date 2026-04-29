@@ -12,6 +12,12 @@ export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 export PATH=$PATH:$HOME/.maestro/bin
 export PATH="$HOME/.local/bin:$PATH"
 
+# fzf: use fd as candidate source and standardize appearance
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
+export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border --preview-window=right:60%:wrap --bind ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'
+
 # === Functions ===
 zj() {
   if git rev-parse --git-dir > /dev/null 2>&1; then
