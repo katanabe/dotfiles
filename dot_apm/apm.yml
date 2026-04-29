@@ -5,6 +5,8 @@ author: katanabe
 dependencies:
   apm:
   - mizchi/skills/apm-usage
+  - mizchi/skills/empirical-prompt-tuning
+  - mizchi/skills/retrospective-codify
   mcp: []
 includes: auto
 scripts: {}

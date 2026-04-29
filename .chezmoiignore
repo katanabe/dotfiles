@@ -2,3 +2,5 @@
 # apm install (re)creates them, lockfile pins versions for reproducibility.
 .apm/apm_modules
 .claude/skills/apm-usage
+.claude/skills/empirical-prompt-tuning
+.claude/skills/retrospective-codify
