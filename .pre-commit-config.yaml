@@ -1,0 +1,16 @@
+repos:
+  - repo: local
+    hooks:
+      - id: validate-skill-frontmatter
+        name: Validate SKILL.md YAML frontmatter
+        entry: ruby scripts/validate-skill-frontmatter.rb
+        language: system
+        files: 'SKILL\.md$'
+        pass_filenames: true
+
+      - id: secretlint
+        name: secretlint (detect API keys / tokens)
+        entry: npx --yes -p secretlint -p @secretlint/secretlint-rule-preset-recommend -- secretlint
+        language: system
+        pass_filenames: true
+        exclude: '^(apm_modules/|\.apm/apm_modules/)'

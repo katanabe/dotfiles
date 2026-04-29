@@ -12,3 +12,8 @@ brew autoupdate status 2>/dev/null | grep -q "running" || brew autoupdate start 
 # Deploy APM skills from chezmoi-managed apm.yml/apm.lock.yaml.
 # --frozen-lockfile fails if manifest and lockfile disagree, guaranteeing reproducibility.
 [ -f "$HOME/.apm/apm.yml" ] && apm install -g --frozen-lockfile
+
+# Register prek pre-commit hooks in the chezmoi source repo.
+if command -v prek >/dev/null 2>&1; then
+  (cd "$HOME/.local/share/chezmoi" && prek install)
+fi
