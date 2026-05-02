@@ -1,6 +1,6 @@
-name: i.keiichi.watanabe
+name: katanabe
 version: 1.0.0
-description: APM project for i.keiichi.watanabe
+description: APM project for katanabe
 author: katanabe
 dependencies:
   apm:
