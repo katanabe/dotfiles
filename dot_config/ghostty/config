@@ -21,6 +21,5 @@ clipboard-write = allow
 clipboard-trim-trailing-spaces = true
 macos-titlebar-style = tabs
 window-new-tab-position = current
-macos-option-as-alt = true
 
 
