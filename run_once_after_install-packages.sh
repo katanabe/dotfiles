@@ -17,3 +17,10 @@ brew autoupdate status 2>/dev/null | grep -q "running" || brew autoupdate start 
 if command -v prek >/dev/null 2>&1; then
   (cd "$HOME/.local/share/chezmoi" && prek install)
 fi
+
+# Markdown viewer used from herdr panes. frogmouth pins old deps that crash on
+# Python 3.14+ (httpcore vs typing.Union), so pin the interpreter to 3.12.
+# Idempotent: skip if already installed.
+if command -v uv >/dev/null 2>&1 && ! NO_COLOR=1 uv tool list 2>/dev/null | grep -q '^frogmouth'; then
+  uv tool install --python 3.12 frogmouth || echo "warn: frogmouth install failed (continuing)"
+fi
