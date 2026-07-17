@@ -5,6 +5,9 @@
 ## セットアップ
 
 ```bash
+# Homebrew をインストール
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 # chezmoi をインストール
 brew install chezmoi
 
@@ -18,12 +21,21 @@ brew bundle --file=~/.config/Brewfile
 sheldon lock
 ```
 
-適用後、`~/.config/chezmoi/chezmoi.toml` を作成してシークレットを設定:
+## マシン固有の設定・シークレット
 
-```toml
-[data]
-npm_token = "your-npm-token"
+特定のマシンでだけ必要な環境変数や API トークンなどは、chezmoi の追跡外である `~/.zshrc.local` に書く。`.zshrc` の最後で自動的に source される。
+
+```bash
+# 例: ~/.zshrc.local
+export NPM_TOKEN="ghp_xxxxx"
+export OPENAI_API_KEY="sk-xxxxx"
 ```
+
+ルール:
+
+- 全マシンで共通の設定は `dot_zshrc.tmpl` に書く
+- 1台でしか使わない設定 / シークレットは `~/.zshrc.local` に書く（git 管理しない）
+- macOS 標準の `security` コマンドで Keychain に置きたい場合も、ルックアップ行は `~/.zshrc.local` に書く
 
 ## ディレクトリ構成
 
@@ -91,6 +103,8 @@ launchd (`com.katanabe.sync-dotfiles`) が毎日 12:00 に以下を実行:
 1. `brew bundle dump` — Brewfile を更新
 2. `chezmoi re-add` — 変更された dotfiles を取り込み
 3. 差分があれば自動 commit & push
+4. `git pull` — リモートの変更を取得
+5. `chezmoi apply` — リモートの変更をディスクに反映
 
 ```bash
 # ログ確認
