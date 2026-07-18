@@ -1,61 +1,122 @@
 tap "homebrew/autoupdate"
-tap "j178/tap"
-tap "microsoft/apm"
-tap "mobile-dev-inc/tap"
-tap "oven-sh/bun"
-tap "sinelaw/fresh"
+tap "microsoft/apm", trusted: true
+tap "mobile-dev-inc/tap", trusted: true
+tap "sinelaw/fresh", trusted: true
+# Download with resuming and segmented downloading
 brew "aria2"
+# Improved shell history for zsh, bash, fish and nushell
 brew "atuin"
+# Multi-shell multi-command argument completer
 brew "carapace"
+# CLI tool for analyzing Claude Code usage from local JSONL files
 brew "ccusage"
+# Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
+# Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript
 brew "clang-format"
+# Dependency manager for Cocoa projects
 brew "cocoapods"
+# Load/unload environment variables based on $PWD
 brew "direnv"
+# Simple, fast and user-friendly alternative to find
 brew "fd"
+# Command-line fuzzy finder written in Go
 brew "fzf"
+# GitHub command-line tool
 brew "gh"
+# Remote repository management made easy
 brew "ghq"
+# CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more
 brew "googleworkspace-cli"
+# Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# Mac App Store command-line interface
+brew "mas"
+# Polyglot runtime manager (asdf rust clone)
 brew "mise"
+# Development kit for the Java programming language
+brew "openjdk@17"
+# Development kit for the Java programming language
 brew "openjdk@21"
+# Execute binaries from Python packages in isolated environments
 brew "pipx"
+# Fast, disk space efficient package manager
 brew "pnpm"
+# PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Object-relational database system
 brew "postgresql@18"
-brew "prek"
+# Safe, concurrent, practical language
+brew "rust"
+# Fast, configurable, shell plugin manager
 brew "sheldon"
+# Cross-shell prompt for astronauts
 brew "starship"
+# Tool to enforce Swift style and conventions
 brew "swiftlint"
+# Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+# Command-line tool to install and switch between multiple versions of Xcode
 brew "xcodes"
+# Shell extension to navigate your filesystem faster
 brew "zoxide"
-brew "microsoft/apm/apm"
+# Agent Package Manager (APM): The NPM for AI-Native Development
+brew "microsoft/apm/apm", trusted: true
+# The easiest way to automate UI testing for your mobile app
 brew "mobile-dev-inc/tap/maestro"
-brew "oven-sh/bun/bun"
+# A modern terminal-based text editor with plugin support
 brew "sinelaw/fresh/fresh"
+# Tools for building Android applications
 cask "android-studio"
+# Chromium based browser
 cask "arc"
+# Utility that prevents the system from going to sleep
 cask "caffeine"
+# Anthropic's official Claude AI desktop app
 cask "claude"
+# Clipboard extension app
 cask "clipy"
+# OpenAI's coding agent that runs in your terminal
 cask "codex"
+# Write, edit, and chat about your code with AI
 cask "cursor"
+# App to build and share containerised applications and microservices
 cask "docker-desktop"
+# Client for the Dropbox cloud storage service
 cask "dropbox"
+cask "font-cica"
 cask "font-jetbrains-mono-nerd-font"
+# Fujitsu ScanSnap Scanner software
+cask "fujitsu-scansnap-home"
+# Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Web browser
 cask "google-chrome"
+# Password manager application and digital vault
 cask "keeper-password-manager"
-cask "linearmouse"
+# App to write, plan, collaborate, and get organised
 cask "notion"
+# Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
+# Control your tools with a few keystrokes
 cask "raycast"
+# Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
+# Team communication and collaboration software
 cask "slack"
+# Web browser
 cask "thebrowsercompany-dia"
+# Charting and social-networking for investment traders
+cask "tradingview"
+# Open-source code editor
+cask "visual-studio-code"
+# Rust-based terminal
+cask "warp"
+# Install and switch between multiple versions of Xcode
 cask "xcodes-app"
+# Multiplayer code editor
 cask "zed"
+# Video communication and virtual meeting platform
 cask "zoom"
