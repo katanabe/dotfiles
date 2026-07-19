@@ -1,4 +1,4 @@
-tap "homebrew/autoupdate"
+tap "domt4/autoupdate", "https://github.com/DomT4/homebrew-autoupdate.git"
 tap "microsoft/apm", trusted: true
 tap "mobile-dev-inc/tap", trusted: true
 tap "sinelaw/fresh", trusted: true
