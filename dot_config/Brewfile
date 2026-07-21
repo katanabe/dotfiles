@@ -108,12 +108,6 @@ cask "rectangle"
 cask "slack"
 # Web browser
 cask "thebrowsercompany-dia"
-# Charting and social-networking for investment traders
-cask "tradingview"
-# Open-source code editor
-cask "visual-studio-code"
-# Rust-based terminal
-cask "warp"
 # Install and switch between multiple versions of Xcode
 cask "xcodes-app"
 # Multiplayer code editor
