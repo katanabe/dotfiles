@@ -23,10 +23,10 @@ export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border --preview-window
 # === Functions ===
 apm-add() {
   local pkg="$1"; local name="${pkg##*/}"
-  apm install -g "$pkg" || return 1
+  apm install -g --target agent-skills,claude "$pkg" || return 1
   chezmoi re-add ~/.apm/apm.yml ~/.apm/apm.lock.yaml
-  # No .chezmoiignore append: the wildcard `.claude/skills/*` rule already
-  # covers any APM-deployed skill (see chezmoi-management skill for the boundary).
+  # No .chezmoiignore append: ~/.agents/skills is outside chezmoi and
+  # the Claude compatibility tree is already ignored by wildcard.
   echo "added: $name (commit/push the dotfiles repo to persist)"
 }
 

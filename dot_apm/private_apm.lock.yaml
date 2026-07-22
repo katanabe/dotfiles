@@ -1,0 +1,340 @@
+lockfile_version: '1'
+generated_at: '2026-07-22T00:18:21.540925+00:00'
+apm_version: 0.25.0
+dependencies:
+- repo_url: mizchi/skills
+  name: skills
+  host: github.com
+  resolved_commit: 7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
+  version: unknown
+  virtual_path: meta/empirical-prompt-tuning
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/empirical-prompt-tuning
+  - .agents/skills/empirical-prompt-tuning/README.md
+  - .agents/skills/empirical-prompt-tuning/SKILL-ja.md
+  - .agents/skills/empirical-prompt-tuning/SKILL.md
+  - .claude/skills/empirical-prompt-tuning
+  - .claude/skills/empirical-prompt-tuning/README.md
+  - .claude/skills/empirical-prompt-tuning/SKILL-ja.md
+  - .claude/skills/empirical-prompt-tuning/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/empirical-prompt-tuning/README.md: sha256:c7db7d27122bcffe416e5607700a7cd1778cad260d3e104c5bb6da7b7f976b3d
+    .agents/skills/empirical-prompt-tuning/SKILL-ja.md: sha256:0a38d830802c2e08a7faca13928fedf6911e00b896946b4b03910d662de6dea5
+    .agents/skills/empirical-prompt-tuning/SKILL.md: sha256:252418e7ef022981d2dda2e3ec57fa1c786d30af68c50b7e062edf1d7361b0cb
+    .claude/skills/empirical-prompt-tuning/README.md: sha256:c7db7d27122bcffe416e5607700a7cd1778cad260d3e104c5bb6da7b7f976b3d
+    .claude/skills/empirical-prompt-tuning/SKILL-ja.md: sha256:0a38d830802c2e08a7faca13928fedf6911e00b896946b4b03910d662de6dea5
+    .claude/skills/empirical-prompt-tuning/SKILL.md: sha256:252418e7ef022981d2dda2e3ec57fa1c786d30af68c50b7e062edf1d7361b0cb
+  content_hash: sha256:20e7fba93c7267ba6e3a7b27787ca49191b762dffcfb804b01da9183b1b0c891
+- repo_url: mizchi/skills
+  name: skills
+  host: github.com
+  resolved_commit: 7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
+  version: unknown
+  virtual_path: meta/retrospective-codify
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/retrospective-codify
+  - .agents/skills/retrospective-codify/README.md
+  - .agents/skills/retrospective-codify/SKILL-ja.md
+  - .agents/skills/retrospective-codify/SKILL.md
+  - .claude/skills/retrospective-codify
+  - .claude/skills/retrospective-codify/README.md
+  - .claude/skills/retrospective-codify/SKILL-ja.md
+  - .claude/skills/retrospective-codify/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/retrospective-codify/README.md: sha256:bdef43f257b112d94d047c467653650dd03fdee556fc8c217a2312e8bc758357
+    .agents/skills/retrospective-codify/SKILL-ja.md: sha256:c55610bfe5ac589d43a6f2199d3b9226a46fef41c0e3f6d02958f69da4c240e9
+    .agents/skills/retrospective-codify/SKILL.md: sha256:70bd226087028461f1e208ac5497593cdf6a0dc1e074d80f970addc1e36e5afa
+    .claude/skills/retrospective-codify/README.md: sha256:bdef43f257b112d94d047c467653650dd03fdee556fc8c217a2312e8bc758357
+    .claude/skills/retrospective-codify/SKILL-ja.md: sha256:c55610bfe5ac589d43a6f2199d3b9226a46fef41c0e3f6d02958f69da4c240e9
+    .claude/skills/retrospective-codify/SKILL.md: sha256:70bd226087028461f1e208ac5497593cdf6a0dc1e074d80f970addc1e36e5afa
+  content_hash: sha256:3ff8c5c61545f778b8731f8d08eccb2bb38c15bc6fa618db509113f48e0ef670
+- repo_url: mizchi/skills
+  name: skills
+  host: github.com
+  resolved_commit: 7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
+  version: unknown
+  virtual_path: tooling/apm-usage
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/apm-usage
+  - .agents/skills/apm-usage/README.md
+  - .agents/skills/apm-usage/SKILL-ja.md
+  - .agents/skills/apm-usage/SKILL.md
+  - .agents/skills/apm-usage/references/manifest-schema.md
+  - .agents/skills/apm-usage/references/publishing.md
+  - .claude/skills/apm-usage
+  - .claude/skills/apm-usage/README.md
+  - .claude/skills/apm-usage/SKILL-ja.md
+  - .claude/skills/apm-usage/SKILL.md
+  - .claude/skills/apm-usage/references/manifest-schema.md
+  - .claude/skills/apm-usage/references/publishing.md
+  deployed_file_hashes:
+    .agents/skills/apm-usage/README.md: sha256:600c52fe2390d9064433123aabbe3f8b9d702e7702fd6437718a82bc0ff5c580
+    .agents/skills/apm-usage/SKILL-ja.md: sha256:095dff73f08d8c23fff1b8106729b1e57e34088ffae23e25d7461e17a88b9743
+    .agents/skills/apm-usage/SKILL.md: sha256:dc975426518a7e264f56ad3a8219bca5a75170fa38f83f59f1f7a7be86f0822b
+    .agents/skills/apm-usage/references/manifest-schema.md: sha256:f49955b8be35046fc963bffbf134af101055c3164ae55f86d6bc8bc001304b13
+    .agents/skills/apm-usage/references/publishing.md: sha256:392878fba913c9cc2eac9ecf028fce1671138bf59c03e66d2e44225757552034
+    .claude/skills/apm-usage/README.md: sha256:600c52fe2390d9064433123aabbe3f8b9d702e7702fd6437718a82bc0ff5c580
+    .claude/skills/apm-usage/SKILL-ja.md: sha256:095dff73f08d8c23fff1b8106729b1e57e34088ffae23e25d7461e17a88b9743
+    .claude/skills/apm-usage/SKILL.md: sha256:dc975426518a7e264f56ad3a8219bca5a75170fa38f83f59f1f7a7be86f0822b
+    .claude/skills/apm-usage/references/manifest-schema.md: sha256:f49955b8be35046fc963bffbf134af101055c3164ae55f86d6bc8bc001304b13
+    .claude/skills/apm-usage/references/publishing.md: sha256:392878fba913c9cc2eac9ecf028fce1671138bf59c03e66d2e44225757552034
+  content_hash: sha256:519bcaa185327320805cfbc89d655499c68485029e995676bdd490665b688a70
+deployments:
+- kind: project-relative
+  target: agents
+  value: .agents/skills/apm-usage
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: null
+- kind: project-relative
+  target: agents
+  value: .agents/skills/apm-usage/README.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:600c52fe2390d9064433123aabbe3f8b9d702e7702fd6437718a82bc0ff5c580
+- kind: project-relative
+  target: agents
+  value: .agents/skills/apm-usage/SKILL-ja.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:095dff73f08d8c23fff1b8106729b1e57e34088ffae23e25d7461e17a88b9743
+- kind: project-relative
+  target: agents
+  value: .agents/skills/apm-usage/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:dc975426518a7e264f56ad3a8219bca5a75170fa38f83f59f1f7a7be86f0822b
+- kind: project-relative
+  target: agents
+  value: .agents/skills/apm-usage/references/manifest-schema.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:f49955b8be35046fc963bffbf134af101055c3164ae55f86d6bc8bc001304b13
+- kind: project-relative
+  target: agents
+  value: .agents/skills/apm-usage/references/publishing.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:392878fba913c9cc2eac9ecf028fce1671138bf59c03e66d2e44225757552034
+- kind: project-relative
+  target: agents
+  value: .agents/skills/empirical-prompt-tuning
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/empirical-prompt-tuning
+  active_owner: mizchi/skills/meta/empirical-prompt-tuning
+  content_hash: null
+- kind: project-relative
+  target: agents
+  value: .agents/skills/empirical-prompt-tuning/README.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/empirical-prompt-tuning
+  active_owner: mizchi/skills/meta/empirical-prompt-tuning
+  content_hash: sha256:c7db7d27122bcffe416e5607700a7cd1778cad260d3e104c5bb6da7b7f976b3d
+- kind: project-relative
+  target: agents
+  value: .agents/skills/empirical-prompt-tuning/SKILL-ja.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/empirical-prompt-tuning
+  active_owner: mizchi/skills/meta/empirical-prompt-tuning
+  content_hash: sha256:0a38d830802c2e08a7faca13928fedf6911e00b896946b4b03910d662de6dea5
+- kind: project-relative
+  target: agents
+  value: .agents/skills/empirical-prompt-tuning/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/empirical-prompt-tuning
+  active_owner: mizchi/skills/meta/empirical-prompt-tuning
+  content_hash: sha256:252418e7ef022981d2dda2e3ec57fa1c786d30af68c50b7e062edf1d7361b0cb
+- kind: project-relative
+  target: agents
+  value: .agents/skills/retrospective-codify
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/retrospective-codify
+  active_owner: mizchi/skills/meta/retrospective-codify
+  content_hash: null
+- kind: project-relative
+  target: agents
+  value: .agents/skills/retrospective-codify/README.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/retrospective-codify
+  active_owner: mizchi/skills/meta/retrospective-codify
+  content_hash: sha256:bdef43f257b112d94d047c467653650dd03fdee556fc8c217a2312e8bc758357
+- kind: project-relative
+  target: agents
+  value: .agents/skills/retrospective-codify/SKILL-ja.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/retrospective-codify
+  active_owner: mizchi/skills/meta/retrospective-codify
+  content_hash: sha256:c55610bfe5ac589d43a6f2199d3b9226a46fef41c0e3f6d02958f69da4c240e9
+- kind: project-relative
+  target: agents
+  value: .agents/skills/retrospective-codify/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/retrospective-codify
+  active_owner: mizchi/skills/meta/retrospective-codify
+  content_hash: sha256:70bd226087028461f1e208ac5497593cdf6a0dc1e074d80f970addc1e36e5afa
+- kind: project-relative
+  target: claude
+  value: .claude/skills/apm-usage
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/apm-usage/README.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:600c52fe2390d9064433123aabbe3f8b9d702e7702fd6437718a82bc0ff5c580
+- kind: project-relative
+  target: claude
+  value: .claude/skills/apm-usage/SKILL-ja.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:095dff73f08d8c23fff1b8106729b1e57e34088ffae23e25d7461e17a88b9743
+- kind: project-relative
+  target: claude
+  value: .claude/skills/apm-usage/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:dc975426518a7e264f56ad3a8219bca5a75170fa38f83f59f1f7a7be86f0822b
+- kind: project-relative
+  target: claude
+  value: .claude/skills/apm-usage/references/manifest-schema.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:f49955b8be35046fc963bffbf134af101055c3164ae55f86d6bc8bc001304b13
+- kind: project-relative
+  target: claude
+  value: .claude/skills/apm-usage/references/publishing.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/tooling/apm-usage
+  active_owner: mizchi/skills/tooling/apm-usage
+  content_hash: sha256:392878fba913c9cc2eac9ecf028fce1671138bf59c03e66d2e44225757552034
+- kind: project-relative
+  target: claude
+  value: .claude/skills/empirical-prompt-tuning
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/empirical-prompt-tuning
+  active_owner: mizchi/skills/meta/empirical-prompt-tuning
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/empirical-prompt-tuning/README.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/empirical-prompt-tuning
+  active_owner: mizchi/skills/meta/empirical-prompt-tuning
+  content_hash: sha256:c7db7d27122bcffe416e5607700a7cd1778cad260d3e104c5bb6da7b7f976b3d
+- kind: project-relative
+  target: claude
+  value: .claude/skills/empirical-prompt-tuning/SKILL-ja.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/empirical-prompt-tuning
+  active_owner: mizchi/skills/meta/empirical-prompt-tuning
+  content_hash: sha256:0a38d830802c2e08a7faca13928fedf6911e00b896946b4b03910d662de6dea5
+- kind: project-relative
+  target: claude
+  value: .claude/skills/empirical-prompt-tuning/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/empirical-prompt-tuning
+  active_owner: mizchi/skills/meta/empirical-prompt-tuning
+  content_hash: sha256:252418e7ef022981d2dda2e3ec57fa1c786d30af68c50b7e062edf1d7361b0cb
+- kind: project-relative
+  target: claude
+  value: .claude/skills/retrospective-codify
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/retrospective-codify
+  active_owner: mizchi/skills/meta/retrospective-codify
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/retrospective-codify/README.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/retrospective-codify
+  active_owner: mizchi/skills/meta/retrospective-codify
+  content_hash: sha256:bdef43f257b112d94d047c467653650dd03fdee556fc8c217a2312e8bc758357
+- kind: project-relative
+  target: claude
+  value: .claude/skills/retrospective-codify/SKILL-ja.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/retrospective-codify
+  active_owner: mizchi/skills/meta/retrospective-codify
+  content_hash: sha256:c55610bfe5ac589d43a6f2199d3b9226a46fef41c0e3f6d02958f69da4c240e9
+- kind: project-relative
+  target: claude
+  value: .claude/skills/retrospective-codify/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - mizchi/skills/meta/retrospective-codify
+  active_owner: mizchi/skills/meta/retrospective-codify
+  content_hash: sha256:70bd226087028461f1e208ac5497593cdf6a0dc1e074d80f970addc1e36e5afa

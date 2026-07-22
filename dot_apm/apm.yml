@@ -2,11 +2,14 @@ name: katanabe
 version: 1.0.0
 description: APM project for katanabe
 author: katanabe
+targets:
+- agent-skills
+- claude
 dependencies:
   apm:
-  - mizchi/skills/apm-usage
-  - mizchi/skills/empirical-prompt-tuning
-  - mizchi/skills/retrospective-codify
+  - mizchi/skills/tooling/apm-usage
+  - mizchi/skills/meta/empirical-prompt-tuning
+  - mizchi/skills/meta/retrospective-codify
   mcp: []
 includes: auto
 scripts: {}

@@ -1,6 +1,6 @@
 ---
 name: chezmoi-management
-description: 'katanabe''s personal chezmoi dotfiles workflow on macOS. Covers the source layout, the diff/apply/re-add cycle, the .tmpl + re-add footgun, APM coexistence, brew autoupdate, the background "auto: sync dotfiles" commit job, and Claude native install PATH handling. Consult this skill whenever any chezmoi command is being considered, or when touching ~/.config/, ~/.zshrc, ~/.apm/, or ~/.claude/skills/. Also use when initializing a fresh macOS machine. Don''t guess chezmoi behavior — patterns here have specific reasons rooted in this user''s setup.'
+description: 'katanabe''s personal chezmoi dotfiles workflow on macOS. Covers the source layout, the diff/apply/re-add cycle, the .tmpl + re-add footgun, APM coexistence, brew autoupdate, the background "auto: sync dotfiles" commit job, and Claude native install PATH handling. Consult this skill whenever any chezmoi command is being considered, or when touching ~/.config/, ~/.zshrc, ~/.apm/, ~/.agents/skills/, or ~/.claude/skills/. Also use when initializing a fresh macOS machine. Don''t guess chezmoi behavior — patterns here have specific reasons rooted in this user''s setup.'
 ---
 
 # chezmoi management (katanabe)
@@ -26,7 +26,7 @@ Personal operations memo for the dotfiles repo at `git@github.com:katanabe/dotfi
 ├── .chezmoiignore                          # APM-managed paths excluded from apply
 ├── dot_apm/
 │   ├── apm.yml                             # adopted skill manifest (chezmoi-managed)
-│   └── apm.lock.yaml                       # commit-pinned for reproducibility
+│   └── private_apm.lock.yaml               # commit-pinned; private_ preserves APM's 0600 mode
 ├── dot_claude/
 │   └── skills/
 │       └── chezmoi-management/             # this skill (chezmoi-managed)
@@ -105,18 +105,19 @@ Prefer `chezmoi edit` over `chezmoi re-add` when uncertain — it never destroys
 
 ## APM coexistence
 
-APM (Microsoft Agent Package Manager) deploys agent skills to `~/.claude/skills/<name>/`. The boundary with chezmoi:
+APM (Microsoft Agent Package Manager) deploys skills to both the shared `~/.agents/skills/<name>/` tree and Claude Code's `~/.claude/skills/<name>/` compatibility tree. The boundary with chezmoi:
 
 | path | manager | rationale |
 |---|---|---|
 | `~/.apm/apm.yml` | chezmoi (`dot_apm/apm.yml`) | declares which skills are adopted; small declarative file |
-| `~/.apm/apm.lock.yaml` | chezmoi (`dot_apm/apm.lock.yaml`) | pins commit hashes for reproducibility |
+| `~/.apm/apm.lock.yaml` | chezmoi (`dot_apm/private_apm.lock.yaml`) | pins commit hashes; `private_` preserves mode 0600 |
 | `~/.apm/apm_modules/` | APM (cache) | listed in `.chezmoiignore` |
 | `~/.apm/config.json` | per-machine, untracked | tiny client preference |
-| `~/.claude/skills/<apm-managed>/` | APM | covered by the wildcard `.claude/skills/*` rule in `.chezmoiignore` (no per-skill entry needed) |
+| `~/.agents/skills/<apm-managed>/` | APM target `agent-skills` | shared by Codex and compatible agents; not chezmoi-managed |
+| `~/.claude/skills/<apm-managed>/` | APM target `claude` | Claude Code compatibility copy; ignored by chezmoi's wildcard rule |
 | `~/.claude/skills/<chezmoi-managed>/` (e.g. this skill) | chezmoi | re-included via `!.claude/skills/<name>` + `!.claude/skills/<name>/**` in `.chezmoiignore` |
 
-The current `.chezmoiignore` ignores everything under `.claude/skills/` and re-includes only chezmoi-managed skills explicitly. So adopting a new APM skill requires no `.chezmoiignore` edit; adding a new *chezmoi-managed* skill requires adding two negation lines for it.
+The current `.chezmoiignore` ignores everything under `.claude/skills/` and re-includes only chezmoi-managed skills explicitly. APM's shared `~/.agents/skills/` tree is outside chezmoi, while its Claude compatibility copies stay ignored. Adopting a new APM skill requires no `.chezmoiignore` edit; adding a new *chezmoi-managed* skill under `~/.claude/skills/` requires two negation lines.
 
 ### Add a skill via APM (with chezmoi sync)
 
@@ -129,11 +130,11 @@ apm-add <owner>/<repo>/skills/<name>#<tag-or-sha>   # pinned
 
 What it does internally:
 
-1. `apm install -g <pkg>` — deploys the skill, updates `~/.apm/apm.yml` + `~/.apm/apm.lock.yaml`
+1. `apm install -g --target agent-skills,claude <pkg>` — deploys the skill, updates `~/.apm/apm.yml` + `~/.apm/apm.lock.yaml`
 2. `chezmoi re-add ~/.apm/apm.yml ~/.apm/apm.lock.yaml` — captures into source
 3. Reminds the user to commit/push the dotfiles repo
 
-No `.chezmoiignore` edit is needed: the wildcard `.claude/skills/*` rule already covers any APM-deployed path.
+No `.chezmoiignore` edit is needed: the shared `~/.agents/skills/` tree is outside chezmoi, and the Claude compatibility tree is already ignored by wildcard.
 
 To remove a skill: `apm uninstall -g <owner>/<repo>` then `chezmoi re-add` the manifests. The function does not bundle the removal flow because it's rarer.
 
@@ -147,7 +148,7 @@ To remove a skill: `apm uninstall -g <owner>/<repo>` then `chezmoi re-add` the m
 | **Commit SHA** | `mizchi/skills/foo#a0ebf680f62836f64d7e9b741ee212f55b108f88` | Use when the upstream has no tags, or you want exact reproducibility regardless of tag re-pointing. Full SHA preferred over short. |
 | **Branch** | `mizchi/skills/foo#main` | Equivalent to no-pin (tracks head). Avoid for stable adoption. |
 
-Pin via `apm install -g <pkg>#<ref>` directly, or edit `apm.yml` and re-run `apm install -g --frozen-lockfile`.
+Pin via `apm install -g --target agent-skills,claude <pkg>#<ref>` directly, or edit `apm.yml` and re-run `apm install -g --frozen`.
 
 ## New machine bootstrap
 
@@ -167,7 +168,7 @@ chezmoi init git@github.com:katanabe/dotfiles.git --apply
 1. `brew bundle --file=~/.config/Brewfile` — installs everything declared in Brewfile (incl. `microsoft/apm/apm`)
 2. `sheldon lock` — installs zsh plugins
 3. `brew autoupdate start 86400` — daily catalog update only (no auto-upgrade; intentional, to avoid surprise version bumps)
-4. `apm install -g --frozen-lockfile` — restores all APM-managed skills at the locked commits
+4. `apm install -g --frozen` — restores all APM-managed skills at the locked commits and the manifest's `agent-skills` + `claude` targets
 
 After the script finishes, the machine is fully reproduced.
 
@@ -229,7 +230,7 @@ Why each checkpoint matters:
 | Before commit | auto-sync committed something locally between your edit and now | Verify it's only auto-sync's work (not your own changes captured prematurely) — if so, harmless; proceed |
 | Before push | the remote advanced (auto-sync from another machine, or local auto-sync pushed) | `git pull --rebase` if you skipped that step, then re-check |
 
-If `git pull --rebase` produces a conflict in `dot_apm/apm.lock.yaml` (likely scenario: another machine added a skill at the same time), resolve by re-running `apm install -g --frozen-lockfile` after accepting both sets of dependencies into `apm.yml`, then regenerating the lockfile with a fresh `apm install -g`.
+If `git pull --rebase` produces a conflict in `dot_apm/private_apm.lock.yaml` (likely scenario: another machine added a skill at the same time), accept both dependency sets in `apm.yml`, then regenerate the lockfile with `apm install -g --target agent-skills,claude --update`.
 
 ### Entry points
 
@@ -312,11 +313,11 @@ chezmoi prompts for confirmation when the dest was modified after chezmoi last w
 chezmoi apply --force <path>
 ```
 
-### A new file in `~/.claude/skills/` should it go to chezmoi or APM?
+### A new skill should it go to chezmoi or APM?
 
 | Origin | Manager |
 |---|---|
-| Installed via `apm install` from a public/private repo | APM (`apm-add` helper) |
+| Installed via `apm install` from a public/private repo | APM (`apm-add` helper) under `~/.agents/skills/` plus a Claude compatibility copy |
 | Authored locally, only used by this user | chezmoi (`chezmoi add ~/.claude/skills/<name>`) |
 | Forked from a public skill, want to customize | chezmoi (vendoring loses upstream updates intentionally) |
 

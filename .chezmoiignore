@@ -2,8 +2,8 @@
 # apm install (re)creates them, lockfile pins versions for reproducibility.
 .apm/apm_modules
 
-# Treat ~/.claude/skills/* as APM-territory by default.
-# Re-include the chezmoi-managed skills below explicitly.
+# Treat ~/.claude/skills/* as agent-managed territory by default.
+# APM uses ~/.agents/skills; re-include only the personal chezmoi-managed copies below.
 .claude/skills/*
 !.claude/skills/chezmoi-management
 !.claude/skills/chezmoi-management/**
