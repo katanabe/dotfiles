@@ -10,3 +10,18 @@
 # herdr: vendored snapshot of upstream SKILL.md (not APM-packaged). Refreshed via /update-skills.
 !.claude/skills/herdr
 !.claude/skills/herdr/**
+
+# Locally-authored skills with no upstream package. Neither APM nor the skills
+# CLI knows about these, so without chezmoi they are lost on a machine rebuild.
+!.claude/skills/as-is-to-be
+!.claude/skills/as-is-to-be/**
+!.claude/skills/react-doctor
+!.claude/skills/react-doctor/**
+!.claude/skills/skill-creator
+!.claude/skills/skill-creator/**
+!.claude/skills/task-add
+!.claude/skills/task-add/**
+!.claude/skills/task-done
+!.claude/skills/task-done/**
+!.claude/skills/task-list
+!.claude/skills/task-list/**
