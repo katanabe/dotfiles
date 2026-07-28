@@ -93,8 +93,11 @@ cask "ghostty"
 cask "google-chrome"
 # Password manager application and digital vault
 cask "keeper-password-manager"
+<<<<<<< Updated upstream
 # Customise mouse behavior
 cask "linearmouse"
+=======
+>>>>>>> Stashed changes
 # App to write, plan, collaborate, and get organised
 cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
@@ -109,6 +112,13 @@ cask "slack"
 cask "thebrowsercompany-dia"
 # Charting and social-networking for investment traders
 cask "tradingview"
+<<<<<<< Updated upstream
+=======
+# Open-source code editor
+cask "visual-studio-code"
+# Rust-based terminal
+cask "warp"
+>>>>>>> Stashed changes
 # Install and switch between multiple versions of Xcode
 cask "xcodes-app"
 # Multiplayer code editor
