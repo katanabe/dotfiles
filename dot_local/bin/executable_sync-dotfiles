@@ -19,11 +19,35 @@ fi
 # Commit and push if there are changes
 cd "$CHEZMOI_DIR"
 git add -A
-git stash
+
+# `git stash` is a no-op when there is nothing to save, so an unconditional pop
+# afterwards resurrects an unrelated older stash. Only pop what this run pushed.
+stashed=0
+if ! git diff --cached --quiet; then
+  git stash push --quiet
+  stashed=1
+fi
+
 git pull --rebase || exit 1
-git stash pop 2>/dev/null || true
+
+if [ "$stashed" -eq 1 ]; then
+  # A conflicted pop leaves markers in the tree and keeps the stash around, so
+  # an unattended retry would replay the same conflict every day.
+  if ! git stash pop; then
+    echo "sync-dotfiles: stash pop conflicted; resolve manually" >&2
+    exit 1
+  fi
+fi
+
+# Apply any changes from remote to disk
+/opt/homebrew/bin/chezmoi apply --force
+
 if [ -n "$(git status --porcelain)" ]; then
   git add -A
+  if git diff --cached | grep -q '^+<<<<<<< '; then
+    echo "sync-dotfiles: refusing to commit conflict markers" >&2
+    exit 1
+  fi
   git commit -m "auto: sync dotfiles $(date +%Y-%m-%d)"
   git push
 fi
