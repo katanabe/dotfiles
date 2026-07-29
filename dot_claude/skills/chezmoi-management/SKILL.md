@@ -1,6 +1,6 @@
 ---
 name: chezmoi-management
-description: 'katanabe''s personal chezmoi dotfiles workflow on macOS. Covers the source layout, the diff/apply/re-add cycle, the .tmpl + re-add footgun, skill ownership (APM / skills CLI / chezmoi), brew autoupdate, the launchd "auto: sync dotfiles" job, and Claude native install PATH handling. Consult this skill whenever any chezmoi command is being considered, or when touching ~/.config/, ~/.zshrc, ~/.apm/, ~/.agents/, or ~/.claude/skills/. Also use when initializing a fresh macOS machine. Don''t guess chezmoi behavior — patterns here have specific reasons rooted in this user''s setup.'
+description: 'katanabe''s personal chezmoi dotfiles workflow on macOS. Covers the source layout, the diff/apply/re-add cycle, the .tmpl + re-add footgun, APM coexistence, brew autoupdate, the background "auto: sync dotfiles" commit job, and Claude native install PATH handling. Consult this skill whenever any chezmoi command is being considered, or when touching ~/.config/, ~/.zshrc, ~/.apm/, ~/.agents/skills/, or ~/.claude/skills/. Also use when initializing a fresh macOS machine. Don''t guess chezmoi behavior — patterns here have specific reasons rooted in this user''s setup.'
 ---
 
 # chezmoi management (katanabe)
@@ -14,8 +14,8 @@ Personal operations memo for the dotfiles repo at `git@github.com:katanabe/dotfi
 | Source path | `~/.local/share/chezmoi/` |
 | Remote | `git@github.com:katanabe/dotfiles.git` (SSH) |
 | Branch | `main` |
-| Auto-sync | Yes — launchd `com.katanabe.sync-dotfiles` runs daily at 12:00. Commits drift as `auto: sync dotfiles YYYY-MM-DD` (author: katanabe). Log: `/tmp/sync-dotfiles.log`. Verify `git status`/`log` before staging changes |
-| Pre-commit | Yes — `prek` via `.pre-commit-config.yaml` (SKILL.md frontmatter validation + secretlint) |
+| Auto-sync | Yes — a background job commits drift as `auto: sync dotfiles YYYY-MM-DD` (author: katanabe). Verify `git status`/`log` before staging changes |
+| Pre-commit | Not set up |
 | OS | macOS (Darwin), Apple Silicon |
 | Terminal | Ghostty (config at `dot_config/ghostty/config`) |
 
@@ -23,24 +23,19 @@ Personal operations memo for the dotfiles repo at `git@github.com:katanabe/dotfi
 
 ```
 ~/.local/share/chezmoi/
-├── .chezmoiignore                          # agent-managed skill paths excluded from apply
-├── .pre-commit-config.yaml                 # prek hooks (frontmatter + secretlint)
+├── .chezmoiignore                          # APM-managed paths excluded from apply
 ├── dot_apm/
-│   ├── apm.yml                             # APM skill manifest (chezmoi-managed)
+│   ├── apm.yml                             # adopted skill manifest (chezmoi-managed)
 │   └── private_apm.lock.yaml               # commit-pinned; private_ preserves APM's 0600 mode
 ├── dot_claude/
-│   └── skills/                             # only chezmoi-owned skills (see Skill ownership)
-│       ├── chezmoi-management/
-│       ├── herdr/                          # vendored upstream snapshot
-│       ├── as-is-to-be/, react-doctor/, skill-creator/
-│       └── task-add/, task-done/, task-list/
+│   └── skills/
+│       └── chezmoi-management/             # this skill (chezmoi-managed)
 ├── dot_config/
 │   ├── Brewfile
 │   ├── ghostty/config
 │   ├── mise/, sheldon/, starship.toml, zellij/
 ├── dot_gitconfig
 ├── dot_local/
-│   └── bin/executable_sync-dotfiles        # launchd daily sync script
 ├── dot_zshrc.tmpl                          # zshrc as a Go template
 ├── private_Library/                        # macOS-specific Library dirs (0600)
 ├── run_once_after_install-packages.sh      # one-shot setup script
@@ -108,23 +103,9 @@ chezmoi cd                          # cd to the source dir
 
 Prefer `chezmoi edit` over `chezmoi re-add` when uncertain — it never destroys template syntax.
 
-## Skill ownership
+## APM coexistence
 
-Three managers place files under `~/.claude/skills/` / `~/.agents/skills/`. Pick one owner per skill name. Mixing the same name across managers causes silent staleness (one manager deploys a real directory that blocks another's symlink).
-
-| Manager | Manifest | Deploy path | Update command | chezmoi's role |
-|---|---|---|---|---|
-| **APM** | `~/.apm/apm.yml` + `apm.lock.yaml` | `~/.agents/skills/` and `~/.claude/skills/` copies | `apm install -g` / `apm outdated -g` | Tracks manifests only (`dot_apm/`) |
-| **skills CLI** | `~/.agents/.skill-lock.json` | Real files in `~/.agents/skills/`; symlink from `~/.claude/skills/` | `npx skills@latest update -g -y` | None (lockfile + tree are outside chezmoi) |
-| **chezmoi** | `.chezmoiignore` re-include lines | Real files under `~/.claude/skills/<name>/` | Edit source → `chezmoi apply` | Owns the skill body |
-
-Current chezmoi-owned skills (re-included in `.chezmoiignore`):
-
-- `chezmoi-management` — this skill
-- `herdr` — vendored upstream snapshot; refresh via `/update-skills`
-- `as-is-to-be`, `react-doctor`, `skill-creator`, `task-add`, `task-done`, `task-list` — locally authored, no upstream package
-
-### APM ↔ chezmoi boundary
+APM (Microsoft Agent Package Manager) deploys skills to both the shared `~/.agents/skills/<name>/` tree and Claude Code's `~/.claude/skills/<name>/` compatibility tree. The boundary with chezmoi:
 
 | path | manager | rationale |
 |---|---|---|
@@ -134,15 +115,9 @@ Current chezmoi-owned skills (re-included in `.chezmoiignore`):
 | `~/.apm/config.json` | per-machine, untracked | tiny client preference |
 | `~/.agents/skills/<apm-managed>/` | APM target `agent-skills` | shared by Codex and compatible agents; not chezmoi-managed |
 | `~/.claude/skills/<apm-managed>/` | APM target `claude` | Claude Code compatibility copy; ignored by chezmoi's wildcard rule |
-| `~/.claude/skills/<chezmoi-managed>/` | chezmoi | re-included via `!.claude/skills/<name>` + `!.claude/skills/<name>/**` |
+| `~/.claude/skills/<chezmoi-managed>/` (e.g. this skill) | chezmoi | re-included via `!.claude/skills/<name>` + `!.claude/skills/<name>/**` in `.chezmoiignore` |
 
-The current `.chezmoiignore` ignores everything under `.claude/skills/` and re-includes only chezmoi-managed skills explicitly. Adopting a new APM skill requires no `.chezmoiignore` edit. Adding a new *chezmoi-managed* skill under `~/.claude/skills/` requires two negation lines.
-
-### skills CLI ↔ APM footgun
-
-skills CLI puts the real tree in `~/.agents/skills/` and symlinks into `~/.claude/skills/`. APM can later write a real directory at the same Claude path and block that symlink. Symptom: `npx skills update` succeeds, but Claude still reads the older APM copy.
-
-Rule: one skill name → one manager. If a skill already exists under skills CLI (check `~/.agents/.skill-lock.json`), do not also list it in `apm.yml`.
+The current `.chezmoiignore` ignores everything under `.claude/skills/` and re-includes only chezmoi-managed skills explicitly. APM's shared `~/.agents/skills/` tree is outside chezmoi, while its Claude compatibility copies stay ignored. Adopting a new APM skill requires no `.chezmoiignore` edit; adding a new *chezmoi-managed* skill under `~/.claude/skills/` requires two negation lines.
 
 ### Add a skill via APM (with chezmoi sync)
 
@@ -163,16 +138,7 @@ No `.chezmoiignore` edit is needed: the shared `~/.agents/skills/` tree is outsi
 
 To remove a skill: `apm uninstall -g <owner>/<repo>` then `chezmoi re-add` the manifests. The function does not bundle the removal flow because it's rarer.
 
-### Update skills CLI packages
-
-```bash
-npx -y skills@latest update -g -y
-# or install: npx -y skills@latest add <owner>/<repo> -g -y -s <skill-name>
-```
-
-Manifest lives at `~/.agents/.skill-lock.json`. Do not put that lockfile under chezmoi — skills CLI owns it.
-
-### Pinning recommendation (APM)
+### Pinning recommendation
 
 `apm.lock.yaml` always pins to a resolved commit, but `apm.yml` may carry an unpinned reference like `mizchi/skills/foo`. APM warns ("dependency has no pinned version — pin with #tag or #sha to prevent drift"). For long-term skills it's worth pinning manually in `apm.yml`:
 
@@ -210,16 +176,11 @@ The run_once script is idempotent on subsequent applies (every step has a "skip 
 
 ## Auto-sync background job
 
-launchd job `com.katanabe.sync-dotfiles` (plist: `~/Library/LaunchAgents/com.katanabe.sync-dotfiles.plist`) runs daily at 12:00. Script: `~/.local/bin/sync-dotfiles` (source: `dot_local/bin/executable_sync-dotfiles`). Stdout/stderr: `/tmp/sync-dotfiles.log`.
+A scheduled job (likely launchd) commits any drift in the chezmoi source repo with messages like:
 
-It:
-
-1. Copies Ghostty GUI config → `~/.config/ghostty/config`
-2. `brew bundle dump --force` into `~/.config/Brewfile`
-3. `chezmoi re-add`
-4. Stashes **only if this run has staged changes**, `git pull --rebase`, pops that stash
-5. `chezmoi apply --force`
-6. Commits drift as `auto: sync dotfiles YYYY-MM-DD` and pushes — but **refuses to commit if conflict markers are staged**
+```
+auto: sync dotfiles 2026-04-29
+```
 
 Authored as `katanabe <nabeon+github@gmail.com>`. Implications:
 
@@ -227,16 +188,7 @@ Authored as `katanabe <nabeon+github@gmail.com>`. Implications:
 - When bundling related changes into one logical commit, do all edits and commit promptly, otherwise the auto-sync may split them.
 - `auto: sync dotfiles ...` commits in the log are not from Claude or the user — they're the sync job catching drift. Don't try to amend or reorder them retroactively unless deliberately reshaping history.
 
-### Why stash is gated
-
-`git stash` is a no-op when there is nothing to save. An unconditional `git stash pop` afterwards resurrects an unrelated older stash, can leave conflict markers in the tree, and (because a conflicted pop keeps the stash) replays the same conflict on the next run. The script therefore:
-
-- sets `stashed=1` only when it actually pushed a stash
-- pops only when `stashed=1`
-- exits non-zero on pop conflict (no commit/push)
-- greps staged diffs for `<<<<<<<` before commit
-
-If `/tmp/sync-dotfiles.log` ends with `stash pop conflicted` or `refusing to commit conflict markers`, resolve manually — do not leave markers for the next noon run.
+The source of the job is not yet documented in this repo. Treat it as "always running" until disabled.
 
 ### Race-safe edit cycle
 
@@ -361,16 +313,15 @@ chezmoi prompts for confirmation when the dest was modified after chezmoi last w
 chezmoi apply --force <path>
 ```
 
-### A new skill — which manager?
+### A new skill should it go to chezmoi or APM?
 
 | Origin | Manager |
 |---|---|
-| Public skill installable via `npx skills add ...` (Vercel agent-skills etc.) | **skills CLI** — prefer this for packages that publish to that ecosystem |
-| Public/private skill packaged for APM (`apm install`) | **APM** (`apm-add` helper) under `~/.agents/skills/` plus a Claude compatibility copy |
-| Authored locally, only used by this user | **chezmoi** (`chezmoi add ~/.claude/skills/<name>` + two `.chezmoiignore` negation lines) |
-| Forked from a public skill, want to customize | **chezmoi** (vendoring loses upstream updates intentionally; `herdr` is this pattern) |
+| Installed via `apm install` from a public/private repo | APM (`apm-add` helper) under `~/.agents/skills/` plus a Claude compatibility copy |
+| Authored locally, only used by this user | chezmoi (`chezmoi add ~/.claude/skills/<name>`) |
+| Forked from a public skill, want to customize | chezmoi (vendoring loses upstream updates intentionally) |
 
-Name collisions: APM and skills CLI both write under `~/.claude/skills/`. Don't list the same skill in both `apm.yml` and `~/.agents/.skill-lock.json`.
+Name collisions: APM overwrites at install time. Don't mix the same name in both managers.
 
 ### `~/.config/Brewfile` drifted (added a package via `brew install` directly)
 Either:

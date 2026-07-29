@@ -1,8 +1,6 @@
 tap "domt4/autoupdate", "https://github.com/DomT4/homebrew-autoupdate.git"
-tap "j178/tap"
 tap "microsoft/apm", trusted: true
 tap "mobile-dev-inc/tap", trusted: true
-tap "oven-sh/bun"
 tap "sinelaw/fresh", trusted: true
 # Download with resuming and segmented downloading
 brew "aria2"
@@ -16,8 +14,6 @@ brew "ccusage"
 brew "chezmoi"
 # Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript
 brew "clang-format"
-# Tool for emulating mouse and keyboard events
-brew "cliclick"
 # Dependency manager for Cocoa projects
 brew "cocoapods"
 # Load/unload environment variables based on $PWD
@@ -34,8 +30,12 @@ brew "ghq"
 brew "googleworkspace-cli"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# Mac App Store command-line interface
+brew "mas"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
+# Development kit for the Java programming language
+brew "openjdk@17"
 # Development kit for the Java programming language
 brew "openjdk@21"
 # Execute binaries from Python packages in isolated environments
@@ -46,8 +46,8 @@ brew "pnpm"
 brew "poppler"
 # Object-relational database system
 brew "postgresql@18"
-# Fast Git hook manager written in Rust, drop-in alternative to pre-commit
-brew "prek"
+# Safe, concurrent, practical language
+brew "rust"
 # Fast, configurable, shell plugin manager
 brew "sheldon"
 # Cross-shell prompt for astronauts
@@ -61,7 +61,7 @@ brew "xcodes"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 # Agent Package Manager (APM): The NPM for AI-Native Development
-brew "microsoft/apm/apm"
+brew "microsoft/apm/apm", trusted: true
 # The easiest way to automate UI testing for your mobile app
 brew "mobile-dev-inc/tap/maestro"
 # A modern terminal-based text editor with plugin support
@@ -84,7 +84,10 @@ cask "cursor"
 cask "docker-desktop"
 # Client for the Dropbox cloud storage service
 cask "dropbox"
+cask "font-cica"
 cask "font-jetbrains-mono-nerd-font"
+# Fujitsu ScanSnap Scanner software
+cask "fujitsu-scansnap-home"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
 # Terminal emulator that uses platform-native UI and GPU acceleration
@@ -93,11 +96,6 @@ cask "ghostty"
 cask "google-chrome"
 # Password manager application and digital vault
 cask "keeper-password-manager"
-<<<<<<< Updated upstream
-# Customise mouse behavior
-cask "linearmouse"
-=======
->>>>>>> Stashed changes
 # App to write, plan, collaborate, and get organised
 cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
@@ -112,13 +110,10 @@ cask "slack"
 cask "thebrowsercompany-dia"
 # Charting and social-networking for investment traders
 cask "tradingview"
-<<<<<<< Updated upstream
-=======
 # Open-source code editor
 cask "visual-studio-code"
 # Rust-based terminal
 cask "warp"
->>>>>>> Stashed changes
 # Install and switch between multiple versions of Xcode
 cask "xcodes-app"
 # Multiplayer code editor
