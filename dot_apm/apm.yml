@@ -10,6 +10,10 @@ dependencies:
   - mizchi/skills/tooling/apm-usage
   - mizchi/skills/meta/empirical-prompt-tuning
   - mizchi/skills/meta/retrospective-codify
+  - GoogleChrome/modern-web-guidance/skills/modern-web-guidance
+  - enomoso-pm/drawio-diagram-skills/skills/create-diagram#76a9d0b2dc6e8134d421d81a788d8477ef430a7e
+  - enomoso-pm/drawio-diagram-skills/skills/create-diagram-d-flow#76a9d0b2dc6e8134d421d81a788d8477ef430a7e
+  - enomoso-pm/drawio-diagram-skills/skills/create-diagram-d-nodeedge#76a9d0b2dc6e8134d421d81a788d8477ef430a7e
   mcp: []
 includes: auto
 scripts: {}
