@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-08-06T07:53:42.721464+00:00'
+generated_at: '2026-08-06T08:33:56.470236+00:00'
 apm_version: 0.27.0
 dependencies:
 - repo_url: enomoso-pm/drawio-diagram-skills
@@ -108,6 +108,7 @@ dependencies:
   name: modern-web-guidance
   host: github.com
   resolved_commit: 684ab9d7c6b78fc2cd5677912d874397cb2e5dfa
+  resolved_ref: v0.0.179
   version: unknown
   virtual_path: skills/modern-web-guidance
   is_virtual: true
@@ -682,6 +683,7 @@ dependencies:
   name: empirical-prompt-tuning
   host: github.com
   resolved_commit: 7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
+  resolved_ref: 7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
   version: unknown
   virtual_path: meta/empirical-prompt-tuning
   is_virtual: true
@@ -695,7 +697,6 @@ dependencies:
   - .claude/skills/empirical-prompt-tuning/README.md
   - .claude/skills/empirical-prompt-tuning/SKILL-ja.md
   - .claude/skills/empirical-prompt-tuning/SKILL.md
-  - .cursor/skills/empirical-prompt-tuning
   deployed_file_hashes:
     .agents/skills/empirical-prompt-tuning/README.md: sha256:c7db7d27122bcffe416e5607700a7cd1778cad260d3e104c5bb6da7b7f976b3d
     .agents/skills/empirical-prompt-tuning/SKILL-ja.md: sha256:0a38d830802c2e08a7faca13928fedf6911e00b896946b4b03910d662de6dea5
@@ -708,6 +709,7 @@ dependencies:
   name: retrospective-codify
   host: github.com
   resolved_commit: 7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
+  resolved_ref: 7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
   version: unknown
   virtual_path: meta/retrospective-codify
   is_virtual: true
@@ -721,7 +723,6 @@ dependencies:
   - .claude/skills/retrospective-codify/README.md
   - .claude/skills/retrospective-codify/SKILL-ja.md
   - .claude/skills/retrospective-codify/SKILL.md
-  - .cursor/skills/retrospective-codify
   deployed_file_hashes:
     .agents/skills/retrospective-codify/README.md: sha256:bdef43f257b112d94d047c467653650dd03fdee556fc8c217a2312e8bc758357
     .agents/skills/retrospective-codify/SKILL-ja.md: sha256:c55610bfe5ac589d43a6f2199d3b9226a46fef41c0e3f6d02958f69da4c240e9
@@ -734,6 +735,7 @@ dependencies:
   name: apm-usage
   host: github.com
   resolved_commit: 7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
+  resolved_ref: 7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
   version: unknown
   virtual_path: tooling/apm-usage
   is_virtual: true
@@ -751,7 +753,6 @@ dependencies:
   - .claude/skills/apm-usage/SKILL.md
   - .claude/skills/apm-usage/references/manifest-schema.md
   - .claude/skills/apm-usage/references/publishing.md
-  - .cursor/skills/apm-usage
   deployed_file_hashes:
     .agents/skills/apm-usage/README.md: sha256:600c52fe2390d9064433123aabbe3f8b9d702e7702fd6437718a82bc0ff5c580
     .agents/skills/apm-usage/SKILL-ja.md: sha256:095dff73f08d8c23fff1b8106729b1e57e34088ffae23e25d7461e17a88b9743
@@ -3863,15 +3864,6 @@ deployments:
   content_hash: sha256:70bd226087028461f1e208ac5497593cdf6a0dc1e074d80f970addc1e36e5afa
 - kind: project-relative
   target: cursor
-  value: .cursor/skills/apm-usage
-  runtime: null
-  scope: project
-  owners:
-  - mizchi/skills/tooling/apm-usage
-  active_owner: mizchi/skills/tooling/apm-usage
-  content_hash: null
-- kind: project-relative
-  target: cursor
   value: .cursor/skills/create-diagram
   runtime: null
   scope: project
@@ -3899,28 +3891,10 @@ deployments:
   content_hash: null
 - kind: project-relative
   target: cursor
-  value: .cursor/skills/empirical-prompt-tuning
-  runtime: null
-  scope: project
-  owners:
-  - mizchi/skills/meta/empirical-prompt-tuning
-  active_owner: mizchi/skills/meta/empirical-prompt-tuning
-  content_hash: null
-- kind: project-relative
-  target: cursor
   value: .cursor/skills/modern-web-guidance
   runtime: null
   scope: project
   owners:
   - googlechrome/modern-web-guidance/skills/modern-web-guidance
   active_owner: googlechrome/modern-web-guidance/skills/modern-web-guidance
-  content_hash: null
-- kind: project-relative
-  target: cursor
-  value: .cursor/skills/retrospective-codify
-  runtime: null
-  scope: project
-  owners:
-  - mizchi/skills/meta/retrospective-codify
-  active_owner: mizchi/skills/meta/retrospective-codify
   content_hash: null

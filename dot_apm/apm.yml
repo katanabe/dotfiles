@@ -7,10 +7,10 @@ targets:
 - claude
 dependencies:
   apm:
-  - mizchi/skills/tooling/apm-usage
-  - mizchi/skills/meta/empirical-prompt-tuning
-  - mizchi/skills/meta/retrospective-codify
-  - GoogleChrome/modern-web-guidance/skills/modern-web-guidance
+  - mizchi/skills/tooling/apm-usage#7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
+  - mizchi/skills/meta/empirical-prompt-tuning#7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
+  - mizchi/skills/meta/retrospective-codify#7a0d72866a0bb3e9ac3e2768c328b09ba2bc40c4
+  - GoogleChrome/modern-web-guidance/skills/modern-web-guidance#v0.0.179
   - enomoso-pm/drawio-diagram-skills/skills/create-diagram#76a9d0b2dc6e8134d421d81a788d8477ef430a7e
   - enomoso-pm/drawio-diagram-skills/skills/create-diagram-d-flow#76a9d0b2dc6e8134d421d81a788d8477ef430a7e
   - enomoso-pm/drawio-diagram-skills/skills/create-diagram-d-nodeedge#76a9d0b2dc6e8134d421d81a788d8477ef430a7e
