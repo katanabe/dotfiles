@@ -4,6 +4,7 @@ set -u
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Trust third-party taps before brew bundle loads their formulae when tap trust is required.
+brew trust --tap domt4/autoupdate || echo "warn: could not trust domt4/autoupdate tap (continuing)"
 brew trust --tap microsoft/apm || echo "warn: could not trust microsoft/apm tap (continuing)"
 brew trust --tap mobile-dev-inc/tap || echo "warn: could not trust mobile-dev-inc/tap tap (continuing)"
 brew trust --tap sinelaw/fresh || echo "warn: could not trust sinelaw/fresh tap (continuing)"
