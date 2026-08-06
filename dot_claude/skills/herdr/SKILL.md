@@ -3,7 +3,7 @@ name: herdr
 description: "Control Herdr, a terminal multiplexer for coding agents. Use only when the user explicitly mentions Herdr or asks to use Herdr to inspect or control panes, tabs, workspaces, commands, or another agent. Do not use merely because a task could benefit from a background terminal, delegation, or parallel work. Requires HERDR_ENV=1."
 ---
 
-<!-- herdr-snapshot: version=0.7.5 source=https://raw.githubusercontent.com/ogulcancelik/herdr/master/SKILL.md managed-by=chezmoi refresh-via=/update-skills -->
+<!-- herdr-snapshot: version=0.8.0 source=https://raw.githubusercontent.com/herdrdev/herdr/master/skills/herdr/SKILL.md managed-by=chezmoi refresh-via=/update-skills -->
 <!-- This is a vendored snapshot of the upstream herdr SKILL.md. It is NOT APM-managed. -->
 <!-- Freshness is checked by /update-skills: it compares the installed `herdr --version` against `version=` above. -->
 <!-- On drift, re-fetch the source URL, replace the body below (keep this comment block, bump version=), then `chezmoi re-add`. -->
