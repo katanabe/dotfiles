@@ -17,8 +17,10 @@ if [ -f "$GHOSTTY_GUI_CONFIG" ]; then
   cp "$GHOSTTY_GUI_CONFIG" "$GHOSTTY_CONFIG"
 fi
 
-# Update Brewfile
-/opt/homebrew/bin/brew bundle dump --file="$HOME/.config/Brewfile" --force
+# Update Brewfile. Types are restricted: an undeclared `uv "frogmouth"` would let
+# brew bundle install it unpinned, and run_once's "skip if present" guard would
+# then never apply the --python 3.12 pin it needs.
+/opt/homebrew/bin/brew bundle dump --file="$HOME/.config/Brewfile" --force --formula --cask --tap
 
 # Re-add all managed files to chezmoi (picks up any changes)
 /opt/homebrew/bin/chezmoi re-add

@@ -65,7 +65,7 @@ brew "zoxide"
 # A Powerful Command Line for automating iOS Simulators
 brew "facebook/fb/idb-companion", trusted: true
 # Agent Package Manager (APM): The NPM for AI-Native Development
-brew "microsoft/apm/apm"
+brew "microsoft/apm/apm", trusted: true
 # The easiest way to automate UI testing for your mobile app
 brew "mobile-dev-inc/tap/maestro"
 # A modern terminal-based text editor with plugin support
