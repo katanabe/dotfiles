@@ -25,3 +25,7 @@
 !.claude/skills/task-done/**
 !.claude/skills/task-list
 !.claude/skills/task-list/**
+
+# Byte-compiled output of the re-included skills above — regenerated on run.
+.claude/skills/**/__pycache__
+.claude/skills/**/__pycache__/**
