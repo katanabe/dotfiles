@@ -1,3 +1,5 @@
 [user]
 	name = katanabe
 	email = nabeon+github@gmail.com
+[include]
+	path = ~/.gitconfig.local

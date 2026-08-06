@@ -1,3 +1,8 @@
+[settings]
+idiomatic_version_file_enable_tools = ["ruby", "node"]
+
 [tools]
 node = "lts"
-pnpm = "latest"
+"npm:pnpm" = "latest"
+bun = "latest"
+ruby = "latest"
