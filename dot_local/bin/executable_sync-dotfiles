@@ -3,6 +3,13 @@ set -euo pipefail
 
 CHEZMOI_DIR="$HOME/.local/share/chezmoi"
 
+cd "$CHEZMOI_DIR"
+
+# Remote first. re-add before apply would capture a stale dest and revert
+# source-side edits that landed here from elsewhere.
+git pull --rebase --autostash || exit 1
+/opt/homebrew/bin/chezmoi apply --force
+
 # Sync Ghostty GUI config to chezmoi-managed config
 GHOSTTY_GUI_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
@@ -16,14 +23,13 @@ fi
 # Re-add all managed files to chezmoi (picks up any changes)
 /opt/homebrew/bin/chezmoi re-add
 
-# Commit and push if there are changes
-cd "$CHEZMOI_DIR"
-git add -A
-git stash
-git pull --rebase || exit 1
-git stash pop 2>/dev/null || true
 if [ -n "$(git status --porcelain)" ]; then
   git add -A
+  # An interrupted rebase would otherwise be committed and pushed with markers intact.
+  if git diff --cached | grep -q '^+<<<<<<< '; then
+    echo "sync-dotfiles: refusing to commit conflict markers" >&2
+    exit 1
+  fi
   git commit -m "auto: sync dotfiles $(date +%Y-%m-%d)"
   git push
 fi
