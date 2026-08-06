@@ -9,7 +9,12 @@ brew trust --tap microsoft/apm || echo "warn: could not trust microsoft/apm tap 
 brew trust --tap mobile-dev-inc/tap || echo "warn: could not trust mobile-dev-inc/tap tap (continuing)"
 brew trust --tap sinelaw/fresh || echo "warn: could not trust sinelaw/fresh tap (continuing)"
 
-brew bundle --file="$HOME/.config/Brewfile" || echo "warn: brew bundle had errors (continuing)"
+# Failing here must not be swallowed: chezmoi only records a run_once script as
+# done when it exits 0, so a non-zero exit retries on the next apply and a
+# transient download failure heals itself. The remaining steps still run.
+rc=0
+brew bundle --file="$HOME/.config/Brewfile" || rc=1
+
 sheldon lock
 
 # Daily `brew update` only (no auto-upgrade — we run `brew upgrade` manually).
@@ -30,3 +35,5 @@ fi
 if command -v uv >/dev/null 2>&1 && ! NO_COLOR=1 uv tool list 2>/dev/null | grep -q '^frogmouth'; then
   uv tool install --python 3.12 frogmouth || echo "warn: frogmouth install failed (continuing)"
 fi
+
+exit $rc

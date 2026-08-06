@@ -206,7 +206,7 @@ chezmoi init git@github.com:katanabe/dotfiles.git --apply
 
 After the script finishes, the machine is fully reproduced.
 
-The run_once script is idempotent on subsequent applies (every step has a "skip if already done" guard). chezmoi only re-runs it when its content hash changes.
+The run_once script is idempotent on subsequent applies (every step has a "skip if already done" guard). chezmoi only re-runs it when its content hash changes — or when the previous run exited non-zero, because a script is recorded as done only on exit 0. `brew bundle` failures therefore propagate to the script's exit status on purpose: a transient download failure retries on the next apply instead of leaving the machine quietly under-provisioned. The daily sync runs scripts best-effort so a persistent failure still can't block dotfiles syncing.
 
 ## Auto-sync background job
 
@@ -214,7 +214,7 @@ launchd job `com.katanabe.sync-dotfiles` (plist: `~/Library/LaunchAgents/com.kat
 
 It:
 
-1. `git pull --rebase --autostash`, then `chezmoi apply --force`
+1. `git pull --rebase --autostash`, then `chezmoi apply --force` — files strictly, scripts best-effort
 2. Copies Ghostty GUI config → `~/.config/ghostty/config`
 3. `brew bundle dump --force` into `~/.config/Brewfile`
 4. `chezmoi re-add`

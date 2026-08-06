@@ -8,7 +8,9 @@ cd "$CHEZMOI_DIR"
 # Remote first. re-add before apply would capture a stale dest and revert
 # source-side edits that landed here from elsewhere.
 git pull --rebase --autostash || exit 1
-/opt/homebrew/bin/chezmoi apply --force
+/opt/homebrew/bin/chezmoi apply --force --exclude=scripts
+# Best-effort: a package install that keeps failing must not block the dotfiles sync.
+/opt/homebrew/bin/chezmoi apply --force --include=scripts || true
 
 # Sync Ghostty GUI config to chezmoi-managed config
 GHOSTTY_GUI_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
