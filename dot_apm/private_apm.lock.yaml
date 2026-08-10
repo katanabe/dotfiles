@@ -1,6 +1,6 @@
 lockfile_version: '1'
-generated_at: '2026-08-06T08:33:56.470236+00:00'
-apm_version: 0.27.0
+generated_at: '2026-08-10T00:53:57.759205+00:00'
+apm_version: 0.28.0
 dependencies:
 - repo_url: enomoso-pm/drawio-diagram-skills
   name: create-diagram
@@ -24,7 +24,6 @@ dependencies:
   - .claude/skills/create-diagram/assets/CICDパイプライン_template.drawio
   - .claude/skills/create-diagram/assets/ER図_template.drawio
   - .claude/skills/create-diagram/assets/シーケンス図_template.drawio
-  - .cursor/skills/create-diagram
   deployed_file_hashes:
     .agents/skills/create-diagram/README.md: sha256:134b05f48c34875861379e4af848a22cae4e2973752ee52f82408b6a69813db4
     .agents/skills/create-diagram/SKILL.md: sha256:e7f8b15dd16591d832a467c2338820a8702fe618afd124ffe7e44bc955274ef5
@@ -57,7 +56,6 @@ dependencies:
   - .claude/skills/create-diagram-d-flow/SKILL.md
   - .claude/skills/create-diagram-d-flow/assets/業務フロー_template.drawio
   - .claude/skills/create-diagram-d-flow/assets/業務フロー_タスク管理アプリ_template.drawio
-  - .cursor/skills/create-diagram-d-flow
   deployed_file_hashes:
     .agents/skills/create-diagram-d-flow/README.md: sha256:0602c7bdb5d89b7b8dfddeb69c8d555d995231d4e8b82e101f0d0b06a80a054d
     .agents/skills/create-diagram-d-flow/SKILL.md: sha256:020f58cc8a77302800c2601a9842f95f68d1cb9ec9a0a7554c34d0b6fd1df1c4
@@ -90,7 +88,6 @@ dependencies:
   - .claude/skills/create-diagram-d-nodeedge/assets/システム構成_template.drawio
   - .claude/skills/create-diagram-d-nodeedge/assets/体制図_template.drawio
   - .claude/skills/create-diagram-d-nodeedge/assets/画面遷移_template.drawio
-  - .cursor/skills/create-diagram-d-nodeedge
   deployed_file_hashes:
     .agents/skills/create-diagram-d-nodeedge/README.md: sha256:93ddd91b7bff5681645ce6e33e6c973644b47c58b4ce0eb3a32fb16533fe6fc2
     .agents/skills/create-diagram-d-nodeedge/SKILL.md: sha256:222558e55e725995f0bd520d98eff58c638c5c752c81e93fd0ccbc409a93faec
@@ -396,7 +393,6 @@ dependencies:
   - .claude/skills/modern-web-guidance/guides/webmcp/agentic-forms.md
   - .claude/skills/modern-web-guidance/guides/webmcp/agentic-javascript-tools.md
   - .claude/skills/modern-web-guidance/guides/webmcp/webmcp.md
-  - .cursor/skills/modern-web-guidance
   deployed_file_hashes:
     .agents/skills/modern-web-guidance/SKILL.md: sha256:0e7aae3cc355b04b1cc286721267e82d5f3aa40e3d75abc7b1c20c17cf85df18
     .agents/skills/modern-web-guidance/guides/accessibility/accessibility.md: sha256:cba525364b8c122336186d914b59508a4b21f2247ed93fd7c5fab952d7231c11
@@ -3862,39 +3858,3 @@ deployments:
   - mizchi/skills/meta/retrospective-codify
   active_owner: mizchi/skills/meta/retrospective-codify
   content_hash: sha256:70bd226087028461f1e208ac5497593cdf6a0dc1e074d80f970addc1e36e5afa
-- kind: project-relative
-  target: cursor
-  value: .cursor/skills/create-diagram
-  runtime: null
-  scope: project
-  owners:
-  - enomoso-pm/drawio-diagram-skills/skills/create-diagram
-  active_owner: enomoso-pm/drawio-diagram-skills/skills/create-diagram
-  content_hash: null
-- kind: project-relative
-  target: cursor
-  value: .cursor/skills/create-diagram-d-flow
-  runtime: null
-  scope: project
-  owners:
-  - enomoso-pm/drawio-diagram-skills/skills/create-diagram-d-flow
-  active_owner: enomoso-pm/drawio-diagram-skills/skills/create-diagram-d-flow
-  content_hash: null
-- kind: project-relative
-  target: cursor
-  value: .cursor/skills/create-diagram-d-nodeedge
-  runtime: null
-  scope: project
-  owners:
-  - enomoso-pm/drawio-diagram-skills/skills/create-diagram-d-nodeedge
-  active_owner: enomoso-pm/drawio-diagram-skills/skills/create-diagram-d-nodeedge
-  content_hash: null
-- kind: project-relative
-  target: cursor
-  value: .cursor/skills/modern-web-guidance
-  runtime: null
-  scope: project
-  owners:
-  - googlechrome/modern-web-guidance/skills/modern-web-guidance
-  active_owner: googlechrome/modern-web-guidance/skills/modern-web-guidance
-  content_hash: null

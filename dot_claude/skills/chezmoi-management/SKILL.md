@@ -35,7 +35,8 @@ Personal operations memo for the dotfiles repo at `git@github.com:katanabe/dotfi
 │       ├── as-is-to-be/, react-doctor/, skill-creator/
 │       └── task-add/, task-done/, task-list/
 ├── dot_config/
-│   ├── Brewfile
+│   ├── Brewfile                            # shared Homebrew packages
+│   ├── Brewfile.local.example              # template for untracked Brewfile.local
 │   ├── ghostty/config
 │   ├── mise/, sheldon/, starship.toml, zellij/
 ├── dot_gitconfig
@@ -217,8 +218,9 @@ It:
 1. `git pull --rebase --autostash`, then `chezmoi apply --force` — files strictly, scripts best-effort
 2. Copies Ghostty GUI config → `~/.config/ghostty/config`
 3. `brew bundle dump --force` into `~/.config/Brewfile`
-4. `chezmoi re-add`
-5. Commits drift as `auto: sync dotfiles YYYY-MM-DD` and pushes — but **refuses to commit if conflict markers are staged**
+4. Strips `Brewfile.local` entries and known exclusives (`docker-desktop` / `rancher`) from the shared Brewfile
+5. `chezmoi re-add`
+6. Commits drift as `auto: sync dotfiles YYYY-MM-DD` and pushes — but **refuses to commit if conflict markers are staged**
 
 Authored as `katanabe <nabeon+github@gmail.com>`. Implications:
 
@@ -372,6 +374,8 @@ Name collisions: APM and skills CLI both write under `~/.claude/skills/`. Don't 
 Either:
 - `brew bundle dump --force --file=~/.config/Brewfile` to regenerate from current state, then `chezmoi re-add ~/.config/Brewfile`
 - Or edit the source Brewfile directly and `chezmoi apply`
+
+Machine-local exclusives (`docker-desktop` / `rancher`, plus anything in `~/.config/Brewfile.local`) must not land in the shared Brewfile. `sync-dotfiles` strips them after dump. Keep per-machine choices only in untracked `~/.config/Brewfile.local` (see `Brewfile.local.example`).
 
 ### Roll back a bad apply
 chezmoi has no built-in undo. Use the source repo's git history:

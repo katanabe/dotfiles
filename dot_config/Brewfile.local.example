@@ -1,0 +1,9 @@
+# Machine-local Homebrew packages. Not managed by chezmoi / not committed.
+# Copy to ~/.config/Brewfile.local and keep only what this machine needs.
+#
+# docker-desktop and rancher conflict with each other — pick one per machine.
+# Example (this Mac mini):
+cask "docker-desktop"
+#
+# Example (Rancher machine):
+# cask "rancher"

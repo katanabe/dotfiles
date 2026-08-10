@@ -103,8 +103,6 @@ cask "linearmouse"
 cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
-# Kubernetes and container management on the desktop
-cask "rancher"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Team communication and collaboration software

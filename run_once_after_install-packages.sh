@@ -13,7 +13,12 @@ brew trust --tap sinelaw/fresh || echo "warn: could not trust sinelaw/fresh tap 
 # done when it exits 0, so a non-zero exit retries on the next apply and a
 # transient download failure heals itself. The remaining steps still run.
 rc=0
-brew bundle --file="$HOME/.config/Brewfile" || rc=1
+# --no-upgrade: install missing only. Upgrades (esp. casks needing sudo) are manual.
+brew bundle --no-upgrade --file="$HOME/.config/Brewfile" || rc=1
+# Machine-local packages (e.g. docker-desktop vs rancher). Not chezmoi-managed.
+if [ -f "$HOME/.config/Brewfile.local" ]; then
+  brew bundle --no-upgrade --file="$HOME/.config/Brewfile.local" || rc=1
+fi
 
 sheldon lock
 

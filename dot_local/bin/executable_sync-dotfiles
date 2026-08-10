@@ -2,6 +2,66 @@
 set -euo pipefail
 
 CHEZMOI_DIR="$HOME/.local/share/chezmoi"
+SHARED_BREWFILE="$HOME/.config/Brewfile"
+LOCAL_BREWFILE="$HOME/.config/Brewfile.local"
+
+# Strip machine-local packages from the shared Brewfile after dump.
+# Always drop known mutually-exclusive runtimes, plus anything listed in
+# Brewfile.local, so dump on either machine cannot reintroduce them.
+strip_local_packages_from_shared_brewfile() {
+  local tmp names
+
+  [ -f "$SHARED_BREWFILE" ] || return 0
+
+  names=$(printf '%s\n' 'docker-desktop' 'rancher')
+  if [ -f "$LOCAL_BREWFILE" ]; then
+    names=$(printf '%s\n%s\n' "$names" "$(
+      awk '
+        /^[[:space:]]*(brew|cask|tap|mas|vscode)[[:space:]]+"/ {
+          if (match($0, /"[^"]+"/)) print substr($0, RSTART + 1, RLENGTH - 2)
+        }
+      ' "$LOCAL_BREWFILE"
+    )")
+  fi
+
+  names=$(printf '%s\n' "$names" | awk 'NF && !seen[$0]++')
+  [ -n "$names" ] || return 0
+
+  tmp=$(mktemp)
+  awk -v names="$names" '
+    BEGIN {
+      n = split(names, arr, "\n")
+      for (i = 1; i <= n; i++) if (arr[i] != "") skip[arr[i]] = 1
+      prev_comment = ""
+    }
+    /^[[:space:]]*#/ {
+      if (prev_comment != "") print prev_comment
+      prev_comment = $0
+      next
+    }
+    /^[[:space:]]*$/ {
+      if (prev_comment != "") { print prev_comment; prev_comment = "" }
+      print
+      next
+    }
+    {
+      keep = 1
+      if (match($0, /"[^"]+"/)) {
+        name = substr($0, RSTART + 1, RLENGTH - 2)
+        if (name in skip) keep = 0
+      }
+      if (keep) {
+        if (prev_comment != "") print prev_comment
+        print
+      }
+      prev_comment = ""
+    }
+    END {
+      if (prev_comment != "") print prev_comment
+    }
+  ' "$SHARED_BREWFILE" > "$tmp"
+  mv "$tmp" "$SHARED_BREWFILE"
+}
 
 cd "$CHEZMOI_DIR"
 
@@ -22,7 +82,8 @@ fi
 # Update Brewfile. Types are restricted: an undeclared `uv "frogmouth"` would let
 # brew bundle install it unpinned, and run_once's "skip if present" guard would
 # then never apply the --python 3.12 pin it needs.
-/opt/homebrew/bin/brew bundle dump --file="$HOME/.config/Brewfile" --force --formula --cask --tap
+/opt/homebrew/bin/brew bundle dump --file="$SHARED_BREWFILE" --force --formula --cask --tap
+strip_local_packages_from_shared_brewfile
 
 # Re-add all managed files to chezmoi (picks up any changes)
 /opt/homebrew/bin/chezmoi re-add
