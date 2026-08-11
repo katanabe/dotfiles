@@ -93,6 +93,15 @@ strip_local_packages_from_shared_brewfile
 # Re-add all managed files to chezmoi (picks up any changes)
 /opt/homebrew/bin/chezmoi re-add
 
+<<<<<<< Updated upstream
+=======
+# Commit and push if there are changes
+cd "$CHEZMOI_DIR"
+git add -A
+git stash
+git pull --rebase || exit 1
+git stash pop 2>/dev/null || true
+>>>>>>> Stashed changes
 if [ -n "$(git status --porcelain)" ]; then
   git add -A
   # An interrupted rebase would otherwise be committed and pushed with markers intact.

@@ -107,10 +107,16 @@ chezmoi git push
 
 launchd (`com.katanabe.sync-dotfiles`) が毎日 12:00 に以下を実行:
 
+<<<<<<< Updated upstream
 1. `brew bundle dump` — 共有 Brewfile を更新
 2. `Brewfile.local` 記載分と `docker-desktop` / `rancher` を共有 Brewfile から除去
 3. `chezmoi re-add` — 変更された dotfiles を取り込み
 4. 差分があれば自動 commit & push
+=======
+1. `brew bundle dump` — Brewfile を更新
+2. `chezmoi re-add` — 変更された dotfiles を取り込み
+3. 差分があれば自動 commit & push
+>>>>>>> Stashed changes
 
 ```bash
 # ログ確認
