@@ -13,8 +13,7 @@
     "code-simplifier@claude-plugins-official": true,
     "ralph-loop@claude-plugins-official": true,
     "claude-code-setup@claude-plugins-official": true,
-    "codex@openai-codex": true,
-    "vercel@claude-plugins-official": true
+    "codex@openai-codex": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
@@ -27,6 +26,5 @@
   "language": "Japanese",
   "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
-  "skipWorkflowUsageWarning": true,
   "theme": "dark-ansi"
 }

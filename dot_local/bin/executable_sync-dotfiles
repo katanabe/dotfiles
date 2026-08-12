@@ -2,80 +2,6 @@
 set -euo pipefail
 
 CHEZMOI_DIR="$HOME/.local/share/chezmoi"
-SHARED_BREWFILE="$HOME/.config/Brewfile"
-LOCAL_BREWFILE="$HOME/.config/Brewfile.local"
-
-# Strip machine-local packages from the shared Brewfile after dump.
-# Always drop known mutually-exclusive runtimes, plus anything listed in
-# Brewfile.local, so dump on either machine cannot reintroduce them.
-strip_local_packages_from_shared_brewfile() {
-  local tmp names_file
-
-  [ -f "$SHARED_BREWFILE" ] || return 0
-
-  # awk -v cannot carry newlines; pass the name list via a temp file.
-  names_file=$(mktemp)
-  {
-    printf '%s\n' 'docker-desktop' 'rancher'
-    if [ -f "$LOCAL_BREWFILE" ]; then
-      awk '
-        /^[[:space:]]*(brew|cask|tap|mas|vscode)[[:space:]]+"/ {
-          if (match($0, /"[^"]+"/)) print substr($0, RSTART + 1, RLENGTH - 2)
-        }
-      ' "$LOCAL_BREWFILE"
-    fi
-  } | awk 'NF && !seen[$0]++' > "$names_file"
-
-  if [ ! -s "$names_file" ]; then
-    rm -f "$names_file"
-    return 0
-  fi
-
-  tmp=$(mktemp)
-  awk -v names_file="$names_file" '
-    BEGIN {
-      while ((getline name < names_file) > 0) if (name != "") skip[name] = 1
-      close(names_file)
-      prev_comment = ""
-    }
-    /^[[:space:]]*#/ {
-      if (prev_comment != "") print prev_comment
-      prev_comment = $0
-      next
-    }
-    /^[[:space:]]*$/ {
-      if (prev_comment != "") { print prev_comment; prev_comment = "" }
-      print
-      next
-    }
-    {
-      keep = 1
-      if (match($0, /"[^"]+"/)) {
-        name = substr($0, RSTART + 1, RLENGTH - 2)
-        if (name in skip) keep = 0
-      }
-      if (keep) {
-        if (prev_comment != "") print prev_comment
-        print
-      }
-      prev_comment = ""
-    }
-    END {
-      if (prev_comment != "") print prev_comment
-    }
-  ' "$SHARED_BREWFILE" > "$tmp"
-  mv "$tmp" "$SHARED_BREWFILE"
-  rm -f "$names_file"
-}
-
-cd "$CHEZMOI_DIR"
-
-# Remote first. re-add before apply would capture a stale dest and revert
-# source-side edits that landed here from elsewhere.
-git pull --rebase --autostash || exit 1
-/opt/homebrew/bin/chezmoi apply --force --exclude=scripts
-# Best-effort: a package install that keeps failing must not block the dotfiles sync.
-/opt/homebrew/bin/chezmoi apply --force --include=scripts || true
 
 # Sync Ghostty GUI config to chezmoi-managed config
 GHOSTTY_GUI_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
@@ -84,31 +10,20 @@ if [ -f "$GHOSTTY_GUI_CONFIG" ]; then
   cp "$GHOSTTY_GUI_CONFIG" "$GHOSTTY_CONFIG"
 fi
 
-# Update Brewfile. Types are restricted: an undeclared `uv "frogmouth"` would let
-# brew bundle install it unpinned, and run_once's "skip if present" guard would
-# then never apply the --python 3.12 pin it needs.
-/opt/homebrew/bin/brew bundle dump --file="$SHARED_BREWFILE" --force --formula --cask --tap
-strip_local_packages_from_shared_brewfile
+# Update Brewfile
+/opt/homebrew/bin/brew bundle dump --file="$HOME/.config/Brewfile" --force
 
 # Re-add all managed files to chezmoi (picks up any changes)
 /opt/homebrew/bin/chezmoi re-add
 
-<<<<<<< Updated upstream
-=======
 # Commit and push if there are changes
 cd "$CHEZMOI_DIR"
 git add -A
 git stash
 git pull --rebase || exit 1
 git stash pop 2>/dev/null || true
->>>>>>> Stashed changes
 if [ -n "$(git status --porcelain)" ]; then
   git add -A
-  # An interrupted rebase would otherwise be committed and pushed with markers intact.
-  if git diff --cached | grep -q '^+<<<<<<< '; then
-    echo "sync-dotfiles: refusing to commit conflict markers" >&2
-    exit 1
-  fi
   git commit -m "auto: sync dotfiles $(date +%Y-%m-%d)"
   git push
 fi
