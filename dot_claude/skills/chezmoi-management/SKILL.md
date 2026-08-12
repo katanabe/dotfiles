@@ -1,6 +1,6 @@
 ---
 name: chezmoi-management
-description: 'katanabe''s personal chezmoi dotfiles workflow on macOS. Covers the source layout, the diff/apply/re-add cycle, the .tmpl + re-add footgun, skill ownership (APM / skills CLI / chezmoi), brew autoupdate, the launchd "auto: sync dotfiles" job, and Claude native install PATH handling. Consult this skill whenever any chezmoi command is being considered, or when touching ~/.config/, ~/.zshrc, ~/.apm/, ~/.agents/, or ~/.claude/skills/. Also use when initializing a fresh macOS machine. Don''t guess chezmoi behavior — patterns here have specific reasons rooted in this user''s setup.'
+description: 'katanabe''s personal chezmoi dotfiles workflow on macOS. Covers the source layout, the diff/apply/re-add cycle, the .tmpl + re-add footgun, skill ownership (APM / skills CLI / chezmoi), brew autoupdate, the launchd "auto: sync dotfiles" job, the two-machine stale-dest rollback loop, and Claude native install PATH handling. Consult this skill whenever any chezmoi command is being considered, or when touching ~/.config/, ~/.zshrc, ~/.apm/, ~/.agents/, or ~/.claude/skills/. Also use when initializing a fresh macOS machine. Don''t guess chezmoi behavior — patterns here have specific reasons rooted in this user''s setup.'
 ---
 
 # chezmoi management (katanabe)
@@ -215,6 +215,7 @@ launchd job `com.katanabe.sync-dotfiles` (plist: `~/Library/LaunchAgents/com.kat
 
 It:
 
+0. Re-execs itself from a `mktemp` copy (see *The script must not be rewritten while it runs*)
 1. `git pull --rebase --autostash`, then `chezmoi apply --force` — files strictly, scripts best-effort
 2. Copies Ghostty GUI config → `~/.config/ghostty/config`
 3. `brew bundle dump --force` into `~/.config/Brewfile`
@@ -235,6 +236,69 @@ Authored as `katanabe <nabeon+github@gmail.com>`. Implications:
 The earlier ordering also stashed around the pull. An unconditional `git stash pop` resurrects an unrelated older stash — `git stash` is a no-op when there is nothing to save — which replays months-old content and can leave conflict markers for `git add -A` to commit. With the pull happening before anything writes to the source, the tree is clean and `--autostash` covers the remaining case: it surfaces a conflict as a stopped rebase instead of a silent pop.
 
 If `/tmp/sync-dotfiles.log` ends with `refusing to commit conflict markers`, resolve manually — do not leave markers for the next noon run.
+
+### The script must not be rewritten while it runs
+
+Step 1 applies `dot_local/bin/executable_sync-dotfiles` onto `~/.local/bin/sync-dotfiles` — the very file bash is executing. bash reads a script incrementally and remembers a **byte offset**, not a line number. Rewriting the file in place shifts everything past that offset, so execution resumes mid-token somewhere else in the new content.
+
+On 2026-08-11 this skipped the conflict-marker guard entirely and pushed marker-laden files; the next run resumed on a `<<<<<<<` line and died with `syntax error near unexpected token '<<<'`, silently killing the job (`launchctl list` showed exit status 2).
+
+The fix is a re-exec preamble that pins the bytes before anything writes:
+
+```bash
+if [ -z "${SYNC_DOTFILES_REEXEC:-}" ]; then
+  self=$(mktemp)
+  cat "$0" > "$self"
+  export SYNC_DOTFILES_REEXEC=1
+  rc=0
+  bash "$self" "$@" || rc=$?      # `|| rc=$?` — plain invocation would trip set -e and skip cleanup
+  rm -f "$self"
+  exit "$rc"
+fi
+```
+
+Any script that deploys over itself needs this. Do not "fix" a self-overwrite symptom by adding more guards downstream — an offset shift can jump past them.
+
+### Two machines: the stale-dest rollback loop
+
+There are two Macs (one `docker-desktop`, one `rancher` — see `Brewfile.local`). Both run the same launchd job against the same remote, which makes one failure mode structural:
+
+**A machine whose `sync-dotfiles` lacks `chezmoi apply` becomes a one-way pusher.** Its dest never updates, so every noon `re-add` writes that frozen dest back into source, `git add -A` commits the reversal, and it pushes. The other machine's work is deleted daily.
+
+It cannot self-heal: pulling the fixed script updates the *source*, but with no apply step the *dest* — the copy launchd actually runs — stays old forever. Bootstrapping the fix requires a manual `chezmoi apply` on that machine.
+
+This happened 2026-08-06 → 08-12. Commit `c9c7ea5` fixed the ordering, but only on the machine that authored it; the other kept reverting the repo to its 08-03 state. Resolved by `4a60afd` (`merge -s ours`) plus manual recovery.
+
+**Diagnostic** — an `auto: sync dotfiles` commit that is mostly *deletions* is a stale-dest rollback, never legitimate drift:
+
+```bash
+git show --stat <sha>                       # thousands of deletions in apm.lock.yaml == rollback
+git reflog | grep -c <sha>                  # 0 → the commit came from the other machine
+git show origin/main:dot_local/bin/executable_sync-dotfiles | grep -c 'chezmoi apply'
+                                            # 0 → that machine is a one-way pusher
+```
+
+**Recovery** — neutralize the remote without rewriting pushed history, then repair the offending machine:
+
+```bash
+# On the healthy machine
+git merge -s ours origin/main -m "revert(sync): ..."   # tree stays ours; push is fast-forward
+git push origin main
+launchctl bootout gui/$UID ~/Library/LaunchAgents/com.katanabe.sync-dotfiles.plist   # pause both
+
+# On the stale machine — order matters
+launchctl bootout gui/$UID ~/Library/LaunchAgents/com.katanabe.sync-dotfiles.plist
+git -C ~/.local/share/chezmoi log --oneline -10        # rescue any non-`auto:` commit first
+git -C ~/.local/share/chezmoi fetch origin && git -C ~/.local/share/chezmoi reset --hard origin/main
+echo 'cask "docker-desktop"' > ~/.config/Brewfile.local   # BEFORE apply: run_once consumes it
+chezmoi diff | less && chezmoi apply --force
+bash -n ~/.local/bin/sync-dotfiles && ls -l ~/.local/bin/sync-dotfiles   # syntax + exec bit
+launchctl bootstrap gui/$UID ~/Library/LaunchAgents/com.katanabe.sync-dotfiles.plist
+```
+
+Pause the healthy machine's job too while repairing — two live jobs racing produce exactly the marker collisions above. `merge -s ours` is preferred over force-push: history keeps the incident, and the push stays a fast-forward.
+
+A rollback also strips the exec bit (`100755` → `100644`) when the stale dest was never executable. Always verify it after recovery.
 
 ### Race-safe edit cycle
 
@@ -358,6 +422,18 @@ chezmoi prompts for confirmation when the dest was modified after chezmoi last w
 ```bash
 chezmoi apply --force <path>
 ```
+
+### The daily sync stopped running / an `auto: sync` commit deleted a lot
+
+Check whether the job is even alive before reading the diff:
+
+```bash
+launchctl list | grep sync-dotfiles     # 2nd column is the last exit status; non-zero == it died
+bash -n ~/.local/bin/sync-dotfiles      # syntax error == the deployed copy is corrupt
+tail -30 /tmp/sync-dotfiles.log
+```
+
+A corrupt deployed script and a deletion-heavy `auto: sync` commit are usually the same incident. See *The script must not be rewritten while it runs* and *Two machines: the stale-dest rollback loop*.
 
 ### A new skill — which manager?
 
