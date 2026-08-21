@@ -28,5 +28,18 @@
   "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
-  "theme": "dark-ansi"
+  "theme": "dark-ansi",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 '/Users/i.keiichi.watanabe/.claude/hooks/herdr-auto-title.py'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
 }
