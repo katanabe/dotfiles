@@ -14,6 +14,9 @@ export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 export PATH=$PATH:$HOME/.maestro/bin
 export PATH="$HOME/.local/bin:$PATH"
 
+# herdr-auto-title: LANG は en_US なので明示しないとタブ名が英語になる
+export HERDR_AUTO_TITLE_LANG=ja
+
 # fzf: use fd as candidate source and standardize appearance
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
