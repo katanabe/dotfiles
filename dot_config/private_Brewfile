@@ -4,6 +4,7 @@ tap "j178/tap"
 tap "microsoft/apm", trusted: true
 tap "mobile-dev-inc/tap", trusted: true
 tap "sinelaw/fresh", trusted: true
+tap "stablyai/orca"
 # Download with resuming and segmented downloading
 brew "aria2"
 # Improved shell history for zsh, bash, fish and nushell
@@ -105,6 +106,8 @@ cask "linearmouse"
 cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
+# IDE for orchestrating AI coding agents across terminals and worktrees
+cask "stablyai/orca/orca", trusted: true
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Team communication and collaboration software
