@@ -30,6 +30,8 @@ brew "ffmpeg"
 brew "fzf"
 # GitHub command-line tool
 brew "gh"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
 # Remote repository management made easy
 brew "ghq"
 # CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more
@@ -62,7 +64,7 @@ brew "uv"
 brew "xcodes"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# A Powerful Command Line for automating iOS Simulators
+# Companion server for automating iOS Simulators
 brew "facebook/fb/idb-companion", trusted: true
 # Agent Package Manager (APM): The NPM for AI-Native Development
 brew "microsoft/apm/apm", trusted: true
