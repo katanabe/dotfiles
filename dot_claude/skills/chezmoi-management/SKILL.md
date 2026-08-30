@@ -437,12 +437,13 @@ A corrupt deployed script and a deletion-heavy `auto: sync` commit are usually t
 
 ### The daily sync leaves changes staged and never pushes
 
-Symptom: `git status` shows staged drift nobody staged by hand, `launchctl list | grep sync-dotfiles` reports exit status **1**, and no `auto: sync` commit has landed for days. Two independent causes, both because launchd does not source a login shell:
+Symptom: `git status` shows staged drift nobody staged by hand, `launchctl list | grep sync-dotfiles` reports exit status **1**, and no `auto: sync` commit has landed for days. Three independent causes, all because launchd does not source a login shell — it supplies neither PATH nor `LANG`, and fires the job on wake rather than on a live network:
 
-| Log line in `/tmp/sync-dotfiles.log` | Cause | Fix (now in the script) |
+| Log line in `/tmp/sync-dotfiles.log` | Cause | Fix (applied 2026-08-30) |
 |---|---|---|
 | ``error: Failed to run hook `secretlint` `` → `No such file or directory (os error 2)` | `npx` exists only under `~/.local/share/mise/shims`; launchd's PATH is bare. The pre-commit hook ENOENTs, `git commit` fails, `set -e` exits — **after `git add -A` already staged everything**, and before `git push`. | `export PATH="$HOME/.local/share/mise/shims:/opt/homebrew/bin:$PATH"` |
 | `ssh: connect to host github.com port 22: Undefined error: 0` | **Not** authentication. `StartCalendarInterval` fires on wake when the Mac slept through 12:00, before Wi-Fi is up; errno 0 on connect means there is no network yet. Intermittent — some runs succeed. | `retry` around `git pull` / `git push` |
+| ``validate-skill-frontmatter.rb:NN:in `split': invalid byte sequence in US-ASCII (ArgumentError)`` | No `LANG` means Ruby's `Encoding.default_external` is **US-ASCII**, so `File.read` hands back an ASCII string and the em-dashes and Japanese in these files blow up `split`. Fires **only when a `SKILL.md` is part of the commit**, so it hid behind the other two and never reached the log. | `File.read(path, encoding: 'UTF-8')` in `scripts/validate-skill-frontmatter.rb` — fixing the script rather than exporting `LANG` also covers manual and CI callers |
 
 Confirm auth is genuinely fine before suspecting the key:
 
@@ -450,6 +451,7 @@ Confirm auth is genuinely fine before suspecting the key:
 ssh -o BatchMode=yes -T git@github.com                          # expect "Hi katanabe!"
 SSH_AUTH_SOCK= ssh-keygen -y -P "" -f ~/.ssh/id_ed25519         # succeeds == no passphrase, so no agent needed
 env -i HOME="$HOME" PATH=/usr/bin:/bin sh -c 'command -v npx'   # reproduces launchd's PATH
+env -i HOME="$HOME" PATH=/usr/bin:/bin ruby -e 'puts Encoding.default_external'  # US-ASCII == the locale trap
 ```
 
 Left-over staged changes are safe: the `brew bundle dump` that produced them ran correctly, only the commit failed. Inspect and commit them normally (a separate commit from your own work — see *Race-safe edit cycle*).
