@@ -16,6 +16,28 @@ if [ -z "${SYNC_DOTFILES_REEXEC:-}" ]; then
   exit "$rc"
 fi
 
+# launchd does not source a login shell, so mise's shims (which is where `npx`
+# lives, used by the secretlint pre-commit hook) and Homebrew are both absent
+# from PATH. Without this the hook dies with ENOENT, `git commit` aborts under
+# `set -e`, and the run ends with everything staged and nothing pushed -- which
+# is silent unless you check `launchctl list`.
+export PATH="$HOME/.local/share/mise/shims:/opt/homebrew/bin:$PATH"
+
+# StartCalendarInterval fires on wake when the Mac was asleep at 12:00, often
+# before Wi-Fi is up. ssh then fails with "connect to host github.com port 22:
+# Undefined error: 0" -- errno 0 means the network is not there yet, not that
+# authentication is broken. Retry instead of losing the whole run.
+retry() {
+  local attempt=1
+  until "$@"; do
+    if [ "$attempt" -ge 5 ]; then
+      return 1
+    fi
+    sleep $((attempt * 30))
+    attempt=$((attempt + 1))
+  done
+}
+
 CHEZMOI_DIR="$HOME/.local/share/chezmoi"
 SHARED_BREWFILE="$HOME/.config/Brewfile"
 LOCAL_BREWFILE="$HOME/.config/Brewfile.local"
@@ -87,7 +109,7 @@ cd "$CHEZMOI_DIR"
 
 # Remote first. re-add before apply would capture a stale dest and revert
 # source-side edits that landed here from elsewhere.
-git pull --rebase --autostash || exit 1
+retry git pull --rebase --autostash || exit 1
 /opt/homebrew/bin/chezmoi apply --force --exclude=scripts
 # Best-effort: a package install that keeps failing must not block the dotfiles sync.
 /opt/homebrew/bin/chezmoi apply --force --include=scripts || true
@@ -116,5 +138,5 @@ if [ -n "$(git status --porcelain)" ]; then
     exit 1
   fi
   git commit -m "auto: sync dotfiles $(date +%Y-%m-%d)"
-  git push
+  retry git push
 fi

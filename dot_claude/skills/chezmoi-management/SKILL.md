@@ -35,7 +35,7 @@ Personal operations memo for the dotfiles repo at `git@github.com:katanabe/dotfi
 │       ├── as-is-to-be/, react-doctor/, skill-creator/
 │       └── task-add/, task-done/, task-list/
 ├── dot_config/
-│   ├── Brewfile                            # shared Homebrew packages
+│   ├── private_Brewfile                    # shared Homebrew packages (dest: ~/.config/Brewfile, 0600)
 │   ├── Brewfile.local.example              # template for untracked Brewfile.local
 │   ├── ghostty/config
 │   ├── mise/, sheldon/, starship.toml, zellij/
@@ -215,13 +215,13 @@ launchd job `com.katanabe.sync-dotfiles` (plist: `~/Library/LaunchAgents/com.kat
 
 It:
 
-0. Re-execs itself from a `mktemp` copy (see *The script must not be rewritten while it runs*)
-1. `git pull --rebase --autostash`, then `chezmoi apply --force` — files strictly, scripts best-effort
+0. Re-execs itself from a `mktemp` copy (see *The script must not be rewritten while it runs*), then exports `PATH` with mise's shims and Homebrew — launchd supplies neither (see *The daily sync leaves changes staged and never pushes*)
+1. `git pull --rebase --autostash`, wrapped in `retry` (5 attempts, 30s-step backoff, ~5 min worst case), then `chezmoi apply --force` — files strictly, scripts best-effort
 2. Copies Ghostty GUI config → `~/.config/ghostty/config`
 3. `brew bundle dump --force` into `~/.config/Brewfile`
 4. Strips `Brewfile.local` entries and known exclusives (`docker-desktop` / `rancher`) from the shared Brewfile
 5. `chezmoi re-add`
-6. Commits drift as `auto: sync dotfiles YYYY-MM-DD` and pushes — but **refuses to commit if conflict markers are staged**
+6. Commits drift as `auto: sync dotfiles YYYY-MM-DD` and pushes (`retry git push`) — but **refuses to commit if conflict markers are staged**
 
 Authored as `katanabe <nabeon+github@gmail.com>`. Implications:
 
@@ -435,6 +435,25 @@ tail -30 /tmp/sync-dotfiles.log
 
 A corrupt deployed script and a deletion-heavy `auto: sync` commit are usually the same incident. See *The script must not be rewritten while it runs* and *Two machines: the stale-dest rollback loop*.
 
+### The daily sync leaves changes staged and never pushes
+
+Symptom: `git status` shows staged drift nobody staged by hand, `launchctl list | grep sync-dotfiles` reports exit status **1**, and no `auto: sync` commit has landed for days. Two independent causes, both because launchd does not source a login shell:
+
+| Log line in `/tmp/sync-dotfiles.log` | Cause | Fix (now in the script) |
+|---|---|---|
+| ``error: Failed to run hook `secretlint` `` → `No such file or directory (os error 2)` | `npx` exists only under `~/.local/share/mise/shims`; launchd's PATH is bare. The pre-commit hook ENOENTs, `git commit` fails, `set -e` exits — **after `git add -A` already staged everything**, and before `git push`. | `export PATH="$HOME/.local/share/mise/shims:/opt/homebrew/bin:$PATH"` |
+| `ssh: connect to host github.com port 22: Undefined error: 0` | **Not** authentication. `StartCalendarInterval` fires on wake when the Mac slept through 12:00, before Wi-Fi is up; errno 0 on connect means there is no network yet. Intermittent — some runs succeed. | `retry` around `git pull` / `git push` |
+
+Confirm auth is genuinely fine before suspecting the key:
+
+```bash
+ssh -o BatchMode=yes -T git@github.com                          # expect "Hi katanabe!"
+SSH_AUTH_SOCK= ssh-keygen -y -P "" -f ~/.ssh/id_ed25519         # succeeds == no passphrase, so no agent needed
+env -i HOME="$HOME" PATH=/usr/bin:/bin sh -c 'command -v npx'   # reproduces launchd's PATH
+```
+
+Left-over staged changes are safe: the `brew bundle dump` that produced them ran correctly, only the commit failed. Inspect and commit them normally (a separate commit from your own work — see *Race-safe edit cycle*).
+
 ### A new skill — which manager?
 
 | Origin | Manager |
@@ -452,6 +471,36 @@ Either:
 - Or edit the source Brewfile directly and `chezmoi apply`
 
 Machine-local exclusives (`docker-desktop` / `rancher`, plus anything in `~/.config/Brewfile.local`) must not land in the shared Brewfile. `sync-dotfiles` strips them after dump. Keep per-machine choices only in untracked `~/.config/Brewfile.local` (see `Brewfile.local.example`).
+
+### Adding a third-party tap package to the shared Brewfile
+
+Four traps, all hit while adding Orca ADE on 2026-08-30:
+
+**Hand-editing the Brewfile is not enough.** The daily job regenerates it with `brew bundle dump --force` from *installed* state. A hand-added line for something not actually installed is deleted at the next noon run. Install first, then record.
+
+**Name collisions need the tap-qualified token.** `cask "orca"` resolves to homebrew-cask's Plotly Orca (deprecated, disabled 2026-09-01) — an entirely unrelated app. Write `cask "stablyai/orca/orca"`.
+
+**Trust is recorded per entry, not per tap.** Homebrew's tap-trust check writes `trusted: true` onto the cask/formula line while the `tap` line stays bare:
+
+```ruby
+tap "stablyai/orca"
+cask "stablyai/orca/orca", trusted: true
+```
+
+Older entries here use whole-tap trust (`tap "microsoft/apm", trusted: true`) instead. Both forms coexist — match whatever `brew bundle dump` emits rather than normalising by hand.
+
+**Dump sorts casks by the bare token, not the qualified name.** `stablyai/orca/orca` sorts under `o`, between `obsidian` and `rectangle` — *not* grouped at the end with other tap-qualified entries (formulae do group tapped entries last, which makes the inconsistency easy to get wrong). A misplaced line produces a spurious move-diff on the next dump.
+
+Safest flow — install, then let the noon job record it, or replicate the job's dump exactly:
+
+```bash
+brew install --cask <tap>/<cask>          # actually install it first
+# then either wait for the 12:00 job, or:
+brew bundle dump --file=~/.config/Brewfile --force --formula --cask --tap
+chezmoi re-add ~/.config/Brewfile
+```
+
+⚠️ A hand-run `dump` reintroduces this machine's exclusives (`rancher` / `docker-desktop`) that the job strips afterwards via `strip_local_packages_from_shared_brewfile`. Check `git diff` and drop them before committing, or just let the job do the dump.
 
 ### Roll back a bad apply
 chezmoi has no built-in undo. Use the source repo's git history:
