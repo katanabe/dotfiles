@@ -8,7 +8,12 @@ require 'yaml'
 failed = false
 
 ARGV.each do |path|
-  content = File.read(path)
+  # Without LANG, Ruby's default_external is US-ASCII -- which is exactly what
+  # launchd hands the sync job. `split` below then raises
+  # "invalid byte sequence in US-ASCII" on the em-dashes and Japanese these
+  # files contain, the commit aborts, and the run dies with everything staged.
+  # Read as UTF-8 regardless of the caller's locale.
+  content = File.read(path, encoding: 'UTF-8')
 
   unless content.start_with?("---\n") || content.start_with?("---\r\n")
     next  # not frontmatter-style; skip
