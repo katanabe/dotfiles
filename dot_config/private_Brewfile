@@ -3,7 +3,6 @@ tap "facebook/fb"
 tap "j178/tap"
 tap "microsoft/apm", trusted: true
 tap "mobile-dev-inc/tap", trusted: true
-tap "oven-sh/bun"
 tap "sinelaw/fresh", trusted: true
 tap "stablyai/orca"
 # Download with resuming and segmented downloading
@@ -20,8 +19,6 @@ brew "ccusage"
 brew "chezmoi"
 # Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript
 brew "clang-format"
-# Tool for emulating mouse and keyboard events
-brew "cliclick"
 # Dependency manager for Cocoa projects
 brew "cocoapods"
 # Load/unload environment variables based on $PWD
@@ -52,8 +49,6 @@ brew "mise"
 brew "openjdk@21"
 # Execute binaries from Python packages in isolated environments
 brew "pipx"
-# Fast, disk space efficient package manager
-brew "pnpm"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Object-relational database system
@@ -64,8 +59,6 @@ brew "prek"
 brew "sheldon"
 # Cross-shell prompt for astronauts
 brew "starship"
-# Tool to enforce Swift style and conventions
-brew "swiftlint"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
 # Command-line tool to install and switch between multiple versions of Xcode
@@ -115,8 +108,6 @@ cask "notion"
 cask "obsidian"
 # IDE for orchestrating AI coding agents across terminals and worktrees
 cask "stablyai/orca/orca", trusted: true
-# Control your tools with a few keystrokes
-cask "raycast"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Team communication and collaboration software
