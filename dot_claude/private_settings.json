@@ -88,6 +88,15 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$HOME/.claude/hooks/pr-body-natural-japanese.py\""
+          }
+        ]
       }
     ],
     "PostToolUse": [
