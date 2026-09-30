@@ -102,8 +102,6 @@ cask "drawio"
 cask "dropbox"
 cask "font-cica"
 cask "font-jetbrains-mono-nerd-font"
-# Fujitsu ScanSnap Scanner software
-cask "fujitsu-scansnap-home"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
 # Terminal emulator that uses platform-native UI and GPU acceleration
@@ -122,6 +120,8 @@ cask "obsidian"
 cask "raycast"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
+# ScanSnap Scanner software
+cask "scansnap-home"
 # Team communication and collaboration software
 cask "slack"
 # Native GUI tool for relational databases
