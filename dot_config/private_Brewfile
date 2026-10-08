@@ -4,10 +4,17 @@ tap "j178/tap"
 tap "microsoft/apm", trusted: true
 tap "mobile-dev-inc/tap", trusted: true
 tap "sinelaw/fresh", trusted: true
+tap "stablyai/orca"
+# Static checker for GitHub Actions workflow files
+brew "actionlint"
 # Download with resuming and segmented downloading
 brew "aria2"
 # Improved shell history for zsh, bash, fish and nushell
 brew "atuin"
+# Securely store and access AWS credentials in development environments
+brew "aws-vault"
+# Official Amazon AWS command-line interface
+brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Multi-shell multi-command argument completer
@@ -18,8 +25,6 @@ brew "ccusage"
 brew "chezmoi"
 # Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript
 brew "clang-format"
-# Cloudflare Tunnel client (formerly Argo Tunnel)
-brew "cloudflared"
 # Dependency manager for Cocoa projects
 brew "cocoapods"
 # Load/unload environment variables based on $PWD
@@ -32,6 +37,8 @@ brew "ffmpeg"
 brew "fzf"
 # GitHub command-line tool
 brew "gh"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
 # Remote repository management made easy
 brew "ghq"
 # CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more
@@ -42,32 +49,26 @@ brew "herdr"
 brew "imagemagick"
 # DevTools proxy for iOS devices
 brew "ios-webkit-debug-proxy"
-# Mac App Store command-line interface
-brew "mas"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
-# Development kit for the Java programming language
-brew "openjdk@17"
 # Development kit for the Java programming language
 brew "openjdk@21"
 # Execute binaries from Python packages in isolated environments
 brew "pipx"
-# Fast, disk space efficient package manager
-brew "pnpm"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Object-relational database system
 brew "postgresql@18"
 # Fast Git hook manager written in Rust, drop-in alternative to pre-commit
 brew "prek"
-# Safe, concurrent, practical language
-brew "rust"
 # Fast, configurable, shell plugin manager
 brew "sheldon"
+# Editor of encrypted files
+brew "sops"
 # Cross-shell prompt for astronauts
 brew "starship"
-# Tool to enforce Swift style and conventions
-brew "swiftlint"
+# OpenTofu / Terraform / Terragrunt / Terramate / Atmos version manager
+brew "tenv"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
 # Command-line tool to install and switch between multiple versions of Xcode
@@ -100,7 +101,6 @@ cask "cursor"
 cask "drawio"
 # Client for the Dropbox cloud storage service
 cask "dropbox"
-cask "font-cica"
 cask "font-jetbrains-mono-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
@@ -116,12 +116,10 @@ cask "linearmouse"
 cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
-# Control your tools with a few keystrokes
-cask "raycast"
+# IDE for orchestrating AI coding agents across terminals and worktrees
+cask "stablyai/orca/orca", trusted: true
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
-# ScanSnap Scanner software
-cask "scansnap-home"
 # Team communication and collaboration software
 cask "slack"
 # Native GUI tool for relational databases
@@ -130,10 +128,6 @@ cask "tableplus"
 cask "thebrowsercompany-dia"
 # Charting and social-networking for investment traders
 cask "tradingview"
-# Open-source code editor
-cask "visual-studio-code"
-# Rust-based terminal
-cask "warp"
 # Install and switch between multiple versions of Xcode
 cask "xcodes-app"
 # Multiplayer code editor
