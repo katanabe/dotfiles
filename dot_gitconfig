@@ -3,3 +3,5 @@
 	email = nabeon+github@gmail.com
 [include]
 	path = ~/.gitconfig.local
+[http]
+	sslBackend = secure-transport

@@ -13,6 +13,8 @@ export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 export PATH=$PATH:$HOME/.maestro/bin
 export PATH="$HOME/.local/bin:$PATH"
+# eMudhra CA 事案 (2026-10) 対応: 同梱 curl を Apple の証明書検証機構で動かす
+export CURL_SSL_BACKEND=secure-transport
 
 # fzf: use fd as candidate source and standardize appearance
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
