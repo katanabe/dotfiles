@@ -85,8 +85,6 @@ brew "mobile-dev-inc/tap/maestro"
 brew "sinelaw/fresh/fresh"
 # Tools for building Android applications
 cask "android-studio"
-# Chromium based browser
-cask "arc"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
 # Anthropic's official Claude AI desktop app
