@@ -120,6 +120,8 @@ cask "obsidian"
 cask "stablyai/orca/orca", trusted: true
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
+# Plugin for AWS CLI to start and end sessions that connect to managed instances
+cask "session-manager-plugin"
 # Team communication and collaboration software
 cask "slack"
 # Native GUI tool for relational databases
