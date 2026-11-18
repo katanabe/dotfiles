@@ -163,7 +163,8 @@
     "codex@openai-codex": true,
     "vercel@claude-plugins-official": true,
     "i-have-adhd@i-have-adhd": true,
-    "show-me@show-me": true
+    "show-me@show-me": true,
+    "yomiyasu@yomiyasu": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
@@ -188,6 +189,12 @@
       "source": {
         "source": "github",
         "repo": "charlie947/show-me"
+      }
+    },
+    "yomiyasu": {
+      "source": {
+        "source": "github",
+        "repo": "nanaism/yomiyasu"
       }
     }
   },
