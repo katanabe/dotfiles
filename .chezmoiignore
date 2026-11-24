@@ -30,6 +30,8 @@
 !.claude/skills/task-list/**
 !.claude/skills/prove-diff
 !.claude/skills/prove-diff/**
+!.claude/skills/pr-screenshot
+!.claude/skills/pr-screenshot/**
 
 # Byte-compiled output of the re-included skills above — regenerated on run.
 .claude/skills/**/__pycache__
